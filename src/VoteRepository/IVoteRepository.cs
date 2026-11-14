@@ -1,5 +1,9 @@
-﻿namespace VoteRepository;
+﻿using DataModel;
 
-public class IVoteRepository
+namespace VoteRepository;
+
+public interface IVoteRepository
 {
+    Task AddTableVersion(string table, string version);
+    Task AddBallotType(BallotType item);
 }

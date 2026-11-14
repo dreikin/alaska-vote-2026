@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\DataModel\DataModel.csproj"/>
         <ProjectReference Include="..\VoteRepository\VoteRepository.csproj"/>
     </ItemGroup>
 
