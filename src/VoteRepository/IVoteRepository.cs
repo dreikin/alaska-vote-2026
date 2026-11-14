@@ -6,4 +6,5 @@ public interface IVoteRepository
 {
     Task AddTableVersion(string table, string version);
     Task AddBallotType(BallotType item);
+    Task AddCountingGroup(CountingGroup item);
 }

@@ -37,7 +37,7 @@ public class BasicTests
 
         var result = calculator.Add(1, 2);
 
-        await Assert.That(result).IsEqualTo<string, int>(3);
+        await Assert.That(result).IsEqualTo<int, int>(3);
     }
 
     [Test]

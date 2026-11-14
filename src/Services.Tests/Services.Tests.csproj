@@ -10,6 +10,13 @@
     <ItemGroup>
         <PackageReference Include="TUnit"/>
         <PackageReference Include="JetBrains.dotCover.Framework"/>
+        <PackageReference Include="TUnit.Mocks"/>
+        <PackageReference Include="TUnit.Mocks.Assertions"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Services\Services.csproj"/>
+        <ProjectReference Include="..\VoteRepository\VoteRepository.csproj"/>
     </ItemGroup>
 
 </Project>
