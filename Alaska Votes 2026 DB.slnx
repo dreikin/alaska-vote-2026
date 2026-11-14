@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="DataModel/DataModel.csproj" />
+    <Project Path="Services/Services.csproj" />
+    <Project Path="src/VoteRepository/VoteRepository.csproj" />
   </Folder>
-  <Project Path="Parser/Parser.csproj" />
 </Solution>
