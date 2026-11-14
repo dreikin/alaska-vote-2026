@@ -2,7 +2,7 @@
 
 namespace Services.Interfaces;
 
-public interface IFileCollectionParser
+public interface IModelCollectionParser
 {
     Task ParseFolder(string folderPath, IVoteRepository repository);
 }
