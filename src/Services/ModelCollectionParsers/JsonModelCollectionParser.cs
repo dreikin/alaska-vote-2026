@@ -41,7 +41,7 @@ public class JsonModelCollectionParser(IModelParserCollection modelParsers) : IM
     {
         foreach (var file in Directory.EnumerateFiles(folderPath))
             if (file.StartsWith("CvrExport_") && file.EndsWith(".json"))
-                await modelParsers.CvrParser.Parse(file, repository);
+                await modelParsers.CvrParser.Parse(File.OpenRead(file), repository);
     }
 
     private async Task ParseManifestFiles(string folderPath, IVoteRepository repository)
@@ -49,7 +49,8 @@ public class JsonModelCollectionParser(IModelParserCollection modelParsers) : IM
         foreach (var (file, parser) in _manifestData)
         {
             var path = Path.Combine(folderPath, file);
-            await parser.Parse(path, repository);
+            var stream = File.OpenRead(path);
+            await parser.Parse(stream, repository);
         }
     }
 }
