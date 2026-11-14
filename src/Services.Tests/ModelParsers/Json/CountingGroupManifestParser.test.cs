@@ -23,7 +23,7 @@ public class CountingGroupManifestParser
     private readonly CountingGroup _expectedSingle = new() { Description = "Election Day", Id = 1, ExternalId = "" };
 
     [Test]
-    public async Task Parse_AddsTableVersion()
+    public async Task Parse_Adds_TableVersion()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -36,7 +36,7 @@ public class CountingGroupManifestParser
     }
 
     [Test]
-    public async Task Parse_AddsTableBallotType()
+    public async Task Parse_Adds_CountingGroup()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();

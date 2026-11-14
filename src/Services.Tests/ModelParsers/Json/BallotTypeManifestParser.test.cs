@@ -23,7 +23,7 @@ public class BallotTypeManifestParser
     private readonly BallotType _expectedSingle = new() { Description = "Ballot 1 - Type 1", Id = 1, ExternalId = "" };
 
     [Test]
-    public async Task Parse_AddsTableVersion()
+    public async Task Parse_Adds_TableVersion()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -36,7 +36,7 @@ public class BallotTypeManifestParser
     }
 
     [Test]
-    public async Task Parse_AddsTableBallotType()
+    public async Task Parse_Adds_BallotType()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
