@@ -35,5 +35,5 @@ public interface IVoteRepository
     Task<int> AddCardContest(CardContest cardContest);
     Task<int> AddCardContestOutstackCondition(int cardContestId, int outstackConditionId);
     Task<int> AddMark(Mark mark);
-    Task AddMarkOutstackCondition(int markId, int outstackConditionId);
+    Task<int> AddMarkOutstackCondition(int markId, int outstackConditionId);
 }
