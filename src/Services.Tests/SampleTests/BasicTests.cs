@@ -1,4 +1,4 @@
-namespace Services.Test;
+namespace Services.Tests.SampleTests;
 
 public class BasicTests
 {

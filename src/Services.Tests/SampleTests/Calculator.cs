@@ -1,4 +1,4 @@
-namespace Services.Tests;
+namespace Services.Tests.SampleTests;
 
 public class Calculator
 {

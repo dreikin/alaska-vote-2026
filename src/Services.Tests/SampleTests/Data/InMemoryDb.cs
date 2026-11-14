@@ -1,6 +1,6 @@
 using TUnit.Core.Interfaces;
 
-namespace Services.Tests;
+namespace Services.Tests.SampleTests.Data;
 
 public class InMemoryDb : IAsyncInitializer, IAsyncDisposable
 {
