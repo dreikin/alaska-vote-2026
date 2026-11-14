@@ -18,4 +18,12 @@ public interface IVoteRepository
     Task<int> FindOrAddTabulatorType(string itemType);
     Task<int> AddVotingLocation(int itemVotingLocationNumber, string itemVotingLocationName);
     Task<int> AddTabulator(Tabulator item);
+    Task<int> AddDistrictPrecinctPortion(DistrictPrecinctPortion item);
+    Task<int> FindOrAddContestType(string itemType);
+    Task<int> AddContest(Contest convertJsonToModel);
+    Task<int> SetConfiguration(Configuration configuration);
+    Task<int> FindOrAddCandidateType(string itemType);
+    Task<int> AddCandidate(Candidate convertJsonToModel);
+    Task<int> AddCandidateAffiliation(int candidateId, int affiliationId);
+    Task<int> AddBallotTypeContest(BallotTypeContest item);
 }

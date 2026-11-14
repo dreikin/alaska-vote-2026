@@ -2,7 +2,7 @@
 
 public sealed class CollectionNames
 {
-    public const string Ballot = "Ballots";
+    public const string BallotTypeContest = "BallotTypeContests";
     public const string BallotType = "BallotTypes";
     public const string Candidate = "Candidates";
     public const string CandidateAffiliation = "CandidateAffiliations";

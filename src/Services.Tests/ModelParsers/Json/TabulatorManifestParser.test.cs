@@ -79,7 +79,7 @@ public class TabulatorManifestParser
     }
 
     [Test]
-    public async Task Parse_Adds_Party()
+    public async Task Parse_Adds_Tabulator()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();

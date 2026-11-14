@@ -1,4 +1,7 @@
-﻿using Services.Interfaces.Json;
+﻿using System.Text.Json;
+using DataModel;
+using DataModel.Constants;
+using Services.Interfaces.Json;
 using VoteRepository;
 
 namespace Services.ModelParsers.Json;
@@ -7,6 +10,10 @@ public class BallotTypeContestManifestParser : IJsonModelParser
 {
     public async Task Parse(Stream data, IVoteRepository voteRepository)
     {
-        throw new NotImplementedException();
+        var manifest =
+            await JsonSerializer.DeserializeAsync<Manifest<BallotTypeContest>>(data, Common.JsonSerializerOptions);
+        if (manifest is null) return;
+        await voteRepository.AddTableVersion(CollectionNames.BallotTypeContest, manifest.Version);
+        foreach (var item in manifest.List) await voteRepository.AddBallotTypeContest(item);
     }
 }
