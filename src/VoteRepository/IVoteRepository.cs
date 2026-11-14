@@ -12,4 +12,10 @@ public interface IVoteRepository
     Task<int> FindOrAddJurisdiction(string description);
     Task<int> AddElectionEvent(ElectionEvent item);
     Task<int> AddOutstackCondition(OutstackCondition item);
+    Task<int> AddParty(Party item);
+    Task<int> AddPrecinct(Precinct item);
+    Task<int> AddPrecinctPortion(PrecinctPortion item);
+    Task<int> FindOrAddTabulatorType(string itemType);
+    Task<int> AddVotingLocation(int itemVotingLocationNumber, string itemVotingLocationName);
+    Task<int> AddTabulator(Tabulator item);
 }
