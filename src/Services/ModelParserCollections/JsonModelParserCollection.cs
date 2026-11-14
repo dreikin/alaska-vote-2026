@@ -1,24 +1,45 @@
 ﻿using Services.Interfaces;
+using Services.Interfaces.Json;
 using Services.ModelParsers.Json;
 
 namespace Services.ModelParserCollections;
 
-public class JsonModelParserCollection : IModelParserCollection
+public class JsonModelParserCollection : IJsonModelParserCollection
 {
-    public IModelParser BallotTypeContestManifestParser { get; } = new BallotTypeContestManifestParser();
-    public IModelParser BallotTypeManifestParser { get; } = new BallotTypeManifestParser();
-    public IModelParser CandidateManifestParser { get; } = new CandidateManifestParser();
-    public IModelParser ConfigurationParser { get; } = new ConfigurationParser();
-    public IModelParser ContestManifestParser { get; } = new ContestManifestParser();
-    public IModelParser CountingGroupManifestParser { get; } = new CountingGroupManifestParser();
-    public IModelParser CvrParser { get; } = new CvrParser();
-    public IModelParser DistrictManifestParser { get; } = new DistrictManifestParser();
-    public IModelParser DistrictPrecinctPortionManifestParser { get; } = new DistrictPrecinctPortionManifestParser();
-    public IModelParser DistrictTypeManifestParser { get; } = new DistrictTypeManifestParser();
-    public IModelParser ElectionEventManifestParser { get; } = new ElectionEventManifestParser();
-    public IModelParser OutstackConditionManifestParser { get; } = new OutstackConditionManifestParser();
-    public IModelParser PartyManifestParser { get; } = new PartyManifestParser();
-    public IModelParser PrecinctManifestParser { get; } = new PrecinctManifestParser();
-    public IModelParser PrecinctPortionManifestParser { get; } = new PrecinctPortionManifestParser();
-    public IModelParser TabulatorManifestParser { get; } = new TabulatorManifestParser();
+    public IJsonModelParser BallotTypeContestManifestParser { get; } = new BallotTypeContestManifestParser();
+    public IJsonModelParser BallotTypeManifestParser { get; } = new BallotTypeManifestParser();
+    public IJsonModelParser CandidateManifestParser { get; } = new CandidateManifestParser();
+    public IJsonModelParser ConfigurationParser { get; } = new ConfigurationParser();
+    public IJsonModelParser ContestManifestParser { get; } = new ContestManifestParser();
+    public IJsonModelParser CountingGroupManifestParser { get; } = new CountingGroupManifestParser();
+    public IJsonModelParser CvrParser { get; } = new CvrParser();
+    public IJsonModelParser DistrictManifestParser { get; } = new DistrictManifestParser();
+
+    public IJsonModelParser DistrictPrecinctPortionManifestParser { get; } =
+        new DistrictPrecinctPortionManifestParser();
+
+    public IJsonModelParser DistrictTypeManifestParser { get; } = new DistrictTypeManifestParser();
+    public IJsonModelParser ElectionEventManifestParser { get; } = new ElectionEventManifestParser();
+    public IJsonModelParser OutstackConditionManifestParser { get; } = new OutstackConditionManifestParser();
+    public IJsonModelParser PartyManifestParser { get; } = new PartyManifestParser();
+    public IJsonModelParser PrecinctManifestParser { get; } = new PrecinctManifestParser();
+    public IJsonModelParser PrecinctPortionManifestParser { get; } = new PrecinctPortionManifestParser();
+    public IJsonModelParser TabulatorManifestParser { get; } = new TabulatorManifestParser();
+
+    IModelParser IModelParserCollection.BallotTypeManifestParser => BallotTypeManifestParser;
+    IModelParser IModelParserCollection.CandidateManifestParser => CandidateManifestParser;
+    IModelParser IModelParserCollection.ConfigurationParser => ConfigurationParser;
+    IModelParser IModelParserCollection.ContestManifestParser => ContestManifestParser;
+    IModelParser IModelParserCollection.CountingGroupManifestParser => CountingGroupManifestParser;
+    IModelParser IModelParserCollection.CvrParser => CvrParser;
+    IModelParser IModelParserCollection.DistrictManifestParser => DistrictManifestParser;
+    IModelParser IModelParserCollection.DistrictPrecinctPortionManifestParser => DistrictPrecinctPortionManifestParser;
+    IModelParser IModelParserCollection.DistrictTypeManifestParser => DistrictTypeManifestParser;
+    IModelParser IModelParserCollection.ElectionEventManifestParser => ElectionEventManifestParser;
+    IModelParser IModelParserCollection.OutstackConditionManifestParser => OutstackConditionManifestParser;
+    IModelParser IModelParserCollection.PartyManifestParser => PartyManifestParser;
+    IModelParser IModelParserCollection.PrecinctManifestParser => PrecinctManifestParser;
+    IModelParser IModelParserCollection.PrecinctPortionManifestParser => PrecinctPortionManifestParser;
+    IModelParser IModelParserCollection.TabulatorManifestParser => TabulatorManifestParser;
+    IModelParser IModelParserCollection.BallotTypeContestManifestParser => BallotTypeContestManifestParser;
 }

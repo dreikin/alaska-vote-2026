@@ -1,9 +1,9 @@
-﻿using Services.Interfaces;
+﻿using Services.Interfaces.Json;
 using VoteRepository;
 
 namespace Services.ModelParsers.Json;
 
-public class CandidateManifestParser : IModelParser
+public class CandidateManifestParser : IJsonModelParser
 {
     public async Task Parse(Stream data, IVoteRepository voteRepository)
     {

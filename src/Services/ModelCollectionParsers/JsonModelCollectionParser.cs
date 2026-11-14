@@ -1,11 +1,12 @@
 ﻿using Services.Interfaces;
+using Services.Interfaces.Json;
 using VoteRepository;
 
 namespace Services.ModelCollectionParsers;
 
-public class JsonModelCollectionParser(IModelParserCollection modelParsers) : IModelCollectionParser
+public class JsonModelCollectionParser(IJsonModelParserCollection modelParsers) : IModelCollectionParser
 {
-    private readonly List<(string file, IModelParser parser)> _manifestData =
+    private readonly List<(string file, IJsonModelParser parser)> _manifestData =
     [
         ("BallotTypeContestManifest.json", modelParsers.BallotTypeContestManifestParser),
         ("BallotTypeManifest.json", modelParsers.BallotTypeManifestParser),
