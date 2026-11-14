@@ -2,4 +2,5 @@
   <Folder Name="/src/">
     <Project Path="DataModel/DataModel.csproj" />
   </Folder>
+  <Project Path="Parser/Parser.csproj" />
 </Solution>
