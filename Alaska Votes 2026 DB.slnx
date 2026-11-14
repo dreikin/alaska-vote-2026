@@ -1,10 +1,11 @@
 <Solution>
     <Folder Name="/src/">
-        <Project Path="src/DataModel/DataModel.csproj"/>
-        <Project Path="src/Services/Services.csproj"/>
-        <Project Path="src/VoteRepository/VoteRepository.csproj"/>
+        <Project Path="src/DataModel/DataModel.csproj" />
+        <Project Path="src/Repository.Sqlite/Repository.Sqlite.csproj" />
+        <Project Path="src/Services/Services.csproj" />
+        <Project Path="src/VoteRepository/VoteRepository.csproj" />
     </Folder>
     <Folder Name="/tests/">
-        <Project Path="src/Services.Tests/Services.Tests.csproj"/>
+        <Project Path="src/Services.Tests/Services.Tests.csproj" />
     </Folder>
 </Solution>

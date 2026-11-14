@@ -4,6 +4,7 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     </PropertyGroup>
     <ItemGroup>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.15"/>
         <PackageVersion Include="TUnit" Version="1.84.0"/>
         <PackageVersion Include="JetBrains.dotCover.Framework" Version="1.0.2"/>
         <PackageVersion Include="TUnit.Mocks" Version="1.84.0"/>
