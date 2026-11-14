@@ -33,4 +33,5 @@ public sealed class CollectionNames
     public const string Tabulator = "Tabulators";
     public const string TabulatorType = "TabulatorTypes";
     public const string VotingLocation = "VotingLocations";
+    public const string VotingRecord = "VotingRecords";
 }

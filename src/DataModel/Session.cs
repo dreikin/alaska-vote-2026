@@ -7,8 +7,10 @@ public class Session
     public ElectionEvent ElectionEvent { get; set; }
     public int TabulatorId { get; set; }
     public Tabulator Tabulator { get; set; }
+
     // TODO: Unknown reference.  Simply a counter?
     public int BatchId { get; set; }
+
     // TODO: Unknown reference. Should be the ID?
     public int RecordId { get; set; }
     public int CountingGroupId { get; set; }

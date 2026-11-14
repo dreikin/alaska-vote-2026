@@ -12,7 +12,7 @@ public class JsonModelParserCollection : IJsonModelParserCollection
     public IJsonModelParser ConfigurationParser { get; } = new ConfigurationParser();
     public IJsonModelParser ContestManifestParser { get; } = new ContestManifestParser();
     public IJsonModelParser CountingGroupManifestParser { get; } = new CountingGroupManifestParser();
-    public IJsonModelParser CvrParser { get; } = new CvrParser();
+    public IJsonModelParser VotingRecordParser { get; } = new VotingRecordParser();
     public IJsonModelParser DistrictManifestParser { get; } = new DistrictManifestParser();
 
     public IJsonModelParser DistrictPrecinctPortionManifestParser { get; } =
@@ -31,7 +31,7 @@ public class JsonModelParserCollection : IJsonModelParserCollection
     IModelParser IModelParserCollection.ConfigurationParser => ConfigurationParser;
     IModelParser IModelParserCollection.ContestManifestParser => ContestManifestParser;
     IModelParser IModelParserCollection.CountingGroupManifestParser => CountingGroupManifestParser;
-    IModelParser IModelParserCollection.CvrParser => CvrParser;
+    IModelParser IModelParserCollection.VotingRecordParser => VotingRecordParser;
     IModelParser IModelParserCollection.DistrictManifestParser => DistrictManifestParser;
     IModelParser IModelParserCollection.DistrictPrecinctPortionManifestParser => DistrictPrecinctPortionManifestParser;
     IModelParser IModelParserCollection.DistrictTypeManifestParser => DistrictTypeManifestParser;

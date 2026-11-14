@@ -8,7 +8,7 @@ public interface IJsonModelParserCollection : IModelParserCollection
     new IJsonModelParser ConfigurationParser { get; }
     new IJsonModelParser ContestManifestParser { get; }
     new IJsonModelParser CountingGroupManifestParser { get; }
-    new IJsonModelParser CvrParser { get; }
+    new IJsonModelParser VotingRecordParser { get; }
     new IJsonModelParser DistrictManifestParser { get; }
     new IJsonModelParser DistrictPrecinctPortionManifestParser { get; }
     new IJsonModelParser DistrictTypeManifestParser { get; }

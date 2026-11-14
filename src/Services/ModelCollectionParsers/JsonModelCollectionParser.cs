@@ -44,7 +44,7 @@ public class JsonModelCollectionParser(IJsonModelParserCollection modelParsers) 
             if (file.StartsWith("CvrExport_") && file.EndsWith(".json"))
             {
                 await using var stream = File.OpenRead(file);
-                await modelParsers.CvrParser.Parse(stream, repository);
+                await modelParsers.VotingRecordParser.Parse(stream, repository);
             }
     }
 

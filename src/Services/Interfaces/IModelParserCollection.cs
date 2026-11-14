@@ -8,7 +8,7 @@ public interface IModelParserCollection
     IModelParser ConfigurationParser { get; }
     IModelParser ContestManifestParser { get; }
     IModelParser CountingGroupManifestParser { get; }
-    IModelParser CvrParser { get; }
+    IModelParser VotingRecordParser { get; }
     IModelParser DistrictManifestParser { get; }
     IModelParser DistrictPrecinctPortionManifestParser { get; }
     IModelParser DistrictTypeManifestParser { get; }

@@ -26,4 +26,14 @@ public interface IVoteRepository
     Task<int> AddCandidate(Candidate convertJsonToModel);
     Task<int> AddCandidateAffiliation(int candidateId, int affiliationId);
     Task<int> AddBallotTypeContest(BallotTypeContest item);
+    Task<int> FindElection(string recordElectionId);
+    Task<int> FindOrAddSessionType(string jsonSessionSessionType);
+    Task<int> AddSession(Session session);
+    Task<int> AddOriginal(Original original);
+    Task<int> AddCard(Card card);
+    Task<int> AddCardOutstackCondition(int cardId, int outstackConditionId);
+    Task<int> AddCardContest(CardContest cardContest);
+    Task<int> AddCardContestOutstackCondition(int cardContestId, int outstackConditionId);
+    Task<int> AddMark(Mark mark);
+    Task AddMarkOutstackCondition(int markId, int outstackConditionId);
 }
