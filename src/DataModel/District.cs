@@ -7,4 +7,5 @@ public class District
     public string ExternalId { get; set; }
     public Guid DistrictTypeId { get; set; }
     public DistrictType DistrictType { get; set; }
+    public ICollection<PrecinctPortion> PrecinctPortions { get; set; }
 }

@@ -20,4 +20,7 @@ public class Contest
     public bool Disabled { get; set; }
     public int ContestTypeId { get; set; }
     public ContestType ContestType { get; set; }
+    public ICollection<BallotType> BallotTypes { get; set; }
+    public ICollection<Candidate> Candidates { get; set; }
+    public ICollection<CardContest> CardContests { get; set; }
 }

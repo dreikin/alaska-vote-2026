@@ -10,5 +10,5 @@ public class Candidate
     public int CandidateTypeId { get; set; }
     public CandidateType CandidateType { get; set; }
     public bool Disabled { get; set; }
-    public ICollection<CandidateAffiliation> CandidateAffiliations { get; set; }
+    public ICollection<Party> PartyAffiliations { get; set; }
 }

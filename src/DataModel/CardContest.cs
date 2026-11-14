@@ -10,6 +10,6 @@ public class CardContest
     public Contest Contest { get; set; }
     public int Undervotes { get; set; }
     public int Overvotes { get; set; }
-    public ICollection<CardContestOutstackCondition> CardContestOutstackConditions { get; set; }
+    public ICollection<OutstackCondition> OutstackConditions { get; set; }
     public ICollection<Mark> Marks { get; set; }
 }

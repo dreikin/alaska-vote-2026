@@ -11,5 +11,5 @@ public class Card
     public int OriginalId { get; set; }
     public Original Original { get; set; }
     public ICollection<CardContest> CardContests { get; set; }
-    public ICollection<CardOutstackCondition> CardOutstackConditions { get; set; }
+    public ICollection<OutstackCondition> OutstackConditions { get; set; }
 }

@@ -14,5 +14,5 @@ public class Mark
     public int MarkDensity { get; set; }
     public bool IsAmbiguous { get; set; }
     public bool IsVote { get; set; }
-    public ICollection<MarkOutstackCondition> MarkOutstackConditions { get; set; }
+    public ICollection<OutstackCondition> OutstackConditions { get; set; }
 }
