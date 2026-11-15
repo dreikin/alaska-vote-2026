@@ -1,6 +1,6 @@
 ﻿using DataModel;
 
-namespace VoteRepository;
+namespace Repository;
 
 public interface IVoteRepository
 {

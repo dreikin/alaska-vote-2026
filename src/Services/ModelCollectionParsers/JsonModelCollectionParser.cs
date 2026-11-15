@@ -1,6 +1,6 @@
-﻿using Services.Interfaces;
+﻿using Repository;
+using Services.Interfaces;
 using Services.Interfaces.Json;
-using VoteRepository;
 
 namespace Services.ModelCollectionParsers;
 

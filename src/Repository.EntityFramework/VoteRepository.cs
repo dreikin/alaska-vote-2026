@@ -1,7 +1,6 @@
 ﻿using DataModel;
-using VoteRepository;
 
-namespace Repository.Sqlite;
+namespace Repository.EntityFramework;
 
 public class VoteRepository : IVoteRepository
 {

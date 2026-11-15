@@ -9,7 +9,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\DataModel\DataModel.csproj"/>
-        <ProjectReference Include="..\VoteRepository\VoteRepository.csproj"/>
+        <ProjectReference Include="..\Repository\Repository.csproj"/>
     </ItemGroup>
 
 </Project>

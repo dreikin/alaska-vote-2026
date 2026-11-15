@@ -1,4 +1,4 @@
-﻿using VoteRepository;
+﻿using Repository;
 
 namespace Services.Interfaces;
 

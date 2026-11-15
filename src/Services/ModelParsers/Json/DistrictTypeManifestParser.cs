@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using DataModel;
 using DataModel.Constants;
+using Repository;
 using Services.Interfaces.Json;
-using VoteRepository;
 
 namespace Services.ModelParsers.Json;
 

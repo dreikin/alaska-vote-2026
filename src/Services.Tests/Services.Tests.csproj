@@ -16,7 +16,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Services\Services.csproj"/>
-        <ProjectReference Include="..\VoteRepository\VoteRepository.csproj"/>
+        <ProjectReference Include="..\Repository\Repository.csproj"/>
     </ItemGroup>
 
 </Project>

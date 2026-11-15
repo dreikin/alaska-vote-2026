@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using DataModel;
-using VoteRepository;
+using Repository;
 
 namespace Services.Tests.ModelParsers.Json;
 

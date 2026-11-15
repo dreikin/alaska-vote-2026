@@ -1,7 +1,7 @@
 ﻿using DataModel;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Sqlite;
+namespace DB.EntityFramework;
 
 public class VoteRepositoryContext : DbContext
 {
@@ -32,12 +32,13 @@ public class VoteRepositoryContext : DbContext
     public DbSet<TabulatorType> TabulatorTypes { get; set; }
     public DbSet<VotingLocation> VotingLocations { get; set; }
 
-    // public DbSet<BallotTypeContest> BallotTypeContests { get; set; } // many-to-many defined through convention
-    // public DbSet<CandidateAffiliation> CandidateAffiliations { get; set; } // many-to-many (candidate <-> party) defined through convention
-    // public DbSet<CardContestOutstackCondition> CardContestOutstackConditions { get; set; } // many-to-many defined through convention
-    // public DbSet<CardOutstackCondition> CardOutstackConditions { get; set; } // many-to-many defined through convention
-    // public DbSet<MarkOutstackCondition> MarkOutstackConditions { get; set; } // many-to-many defined through convention
-    // public DbSet<DistrictPrecinctPortion> DistrictPrecinctPortions { get; set; } // many-to-many defined through convention
+    // Many-to-many collections defined through convention:
+    // public DbSet<BallotTypeContest> BallotTypeContests { get; set; }
+    // public DbSet<CandidateAffiliation> CandidateAffiliations { get; set; } // candidate <-> party)
+    // public DbSet<CardContestOutstackCondition> CardContestOutstackConditions { get; set; }
+    // public DbSet<CardOutstackCondition> CardOutstackConditions { get; set; }
+    // public DbSet<MarkOutstackCondition> MarkOutstackConditions { get; set; }
+    // public DbSet<DistrictPrecinctPortion> DistrictPrecinctPortions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

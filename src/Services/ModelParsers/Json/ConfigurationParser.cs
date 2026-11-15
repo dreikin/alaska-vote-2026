@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using DataModel;
+using Repository;
 using Services.Interfaces.Json;
-using VoteRepository;
 
 namespace Services.ModelParsers.Json;
 
