@@ -1,7 +1,11 @@
-﻿namespace DataModel;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DataModel;
 
 public class TableVersion
 {
-    public string Name { get; set; }
-    public string Version { get; set; }
+    [Key] public required int Id { get; set; }
+
+    public required string Name { get; set; }
+    public required string Version { get; set; }
 }

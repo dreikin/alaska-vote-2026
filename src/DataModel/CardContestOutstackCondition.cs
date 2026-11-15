@@ -2,8 +2,8 @@
 
 public class CardContestOutstackCondition
 {
-    public int CardContestId { get; set; }
-    public CardContest CardContest { get; set; }
-    public int OutstackConditionId { get; set; }
-    public OutstackCondition OutstackCondition { get; set; }
+    public required int CardContestId { get; set; }
+    public CardContest? CardContest { get; set; }
+    public required int OutstackConditionId { get; set; }
+    public OutstackCondition? OutstackCondition { get; set; }
 }

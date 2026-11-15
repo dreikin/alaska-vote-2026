@@ -1,7 +1,11 @@
-﻿namespace DataModel;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DataModel;
 
 public class SessionType
 {
-    public int Id { get; set; }
-    public string Description { get; set; }
+    [Key] public required int Id { get; set; }
+
+    public required string Description { get; set; }
+    public ICollection<Session>? Sessions { get; set; }
 }

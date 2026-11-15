@@ -2,8 +2,8 @@
 
 public class MarkOutstackCondition
 {
-    public int MarkId { get; set; }
-    public Mark Mark { get; set; }
-    public int OutstackConditionId { get; set; }
-    public OutstackCondition OutstackCondition { get; set; }
+    public required int MarkId { get; set; }
+    public Mark? Mark { get; set; }
+    public required int OutstackConditionId { get; set; }
+    public OutstackCondition? OutstackCondition { get; set; }
 }

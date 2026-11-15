@@ -1,14 +1,21 @@
-﻿namespace DataModel;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DataModel;
 
 public class ElectionEvent
 {
-    public int Id { get; set; }
-    public string Description { get; set; }
-    public string ExternalId { get; set; }
-    public int JurisdictionId { get; set; }
-    public Jurisdiction Jurisdiction { get; set; }
+    [Key] public required int Id { get; set; }
+
+    public required string Description { get; set; }
+    public string? ExternalId { get; set; }
+    public required int JurisdictionId { get; set; }
+
+    public Jurisdiction? Jurisdiction { get; set; }
+
     // TODO: EF Compatibility
-    public DateOnly ElectionDate { get; set; }
+    public required DateOnly ElectionDate { get; set; }
+
     // TODO: Data annotation - 32 bytes
-    public byte[] ElectionSignature { get; set; }
+    [MaxLength(32)] public required byte[] ElectionSignature { get; set; }
+    public ICollection<Session>? Sessions { get; set; }
 }

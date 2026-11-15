@@ -43,17 +43,14 @@ public class VoteRepositoryContext : DbContext
     {
         #region Many-To-Many
 
-        modelBuilder.Entity<BallotType>().HasMany(bt => bt.Contests).WithMany(c => c.BallotTypes);
         modelBuilder.Entity<Contest>().HasMany(c => c.BallotTypes).WithMany(bt => bt.Contests);
-
         modelBuilder.Entity<Candidate>().HasMany(c => c.PartyAffiliations).WithMany(p => p.CandidateAffiliations);
-        modelBuilder.Entity<Party>().HasMany(p => p.CandidateAffiliations).WithMany(c => c.PartyAffiliations);
+        modelBuilder.Entity<District>().HasMany(d => d.PrecinctPortions).WithMany(pp => pp.Districts);
 
         modelBuilder.Entity<CardContest>().HasMany(cc => cc.OutstackConditions).WithMany(oc => oc.CardContests);
         modelBuilder.Entity<Card>().HasMany(c => c.OutstackConditions).WithMany(oc => oc.Cards);
+        modelBuilder.Entity<Configuration>().HasMany(c => c.OutstackConditions).WithMany(oc => oc.Configurations);
         modelBuilder.Entity<Mark>().HasMany(m => m.OutstackConditions).WithMany(oc => oc.Marks);
-
-        modelBuilder.Entity<District>().HasMany(d => d.PrecinctPortions).WithMany(pp => pp.Districts);
 
         #endregion Many-To-Many
 
@@ -65,34 +62,50 @@ public class VoteRepositoryContext : DbContext
         modelBuilder.Entity<Card>().HasOne(c => c.Original).WithMany(o => o.Cards);
         modelBuilder.Entity<CardContest>().HasOne(cc => cc.Card).WithMany(c => CardContests);
         modelBuilder.Entity<CardContest>().HasOne(cc => cc.Contest).WithMany(c => c.CardContests);
+        modelBuilder.Entity<Contest>().HasOne(c => c.District).WithMany(d => d.Contests);
+        modelBuilder.Entity<Contest>().HasOne(c => c.ContestType).WithMany(ct => ct.Contests);
+        modelBuilder.Entity<ContestFilter>().HasOne(cf => cf.Configuration).WithMany(c => c.ContestFilter);
+        modelBuilder.Entity<District>().HasOne(d => d.DistrictType).WithMany(dt => dt.Districts);
+        modelBuilder.Entity<ElectionEvent>().HasOne(ee => ee.Jurisdiction).WithMany(j => j.ElectionEvents);
         modelBuilder.Entity<Mark>().HasOne(m => m.CardContest).WithMany(cc => cc.Marks);
+        modelBuilder.Entity<Mark>().HasOne(m => m.Candidate).WithMany(c => c.Marks);
+        modelBuilder.Entity<Mark>().HasOne(m => m.Party).WithMany(p => p.Marks);
+        modelBuilder.Entity<Original>().HasOne(o => o.PrecinctPortion).WithMany(pp => pp.Originals);
+        modelBuilder.Entity<Original>().HasOne(o => o.BallotType).WithMany(bt => bt.Originals);
+        modelBuilder.Entity<PrecinctPortion>().HasOne(pp => pp.Precinct).WithMany(p => p.PrecinctPortions);
+        modelBuilder.Entity<PrecinctPortionFilter>().HasOne(ppf => ppf.Configuration)
+            .WithMany(c => c.PrecinctPortionFilter);
+        modelBuilder.Entity<Session>().HasOne(s => s.ElectionEvent).WithMany(ee => ee.Sessions);
+        modelBuilder.Entity<Session>().HasOne(s => s.Tabulator).WithMany(t => t.Sessions);
+        modelBuilder.Entity<Session>().HasOne(s => s.CountingGroup).WithMany(cc => cc.Sessions);
+        modelBuilder.Entity<Session>().HasOne(s => s.SessionType).WithMany(st => st.Sessions);
+        modelBuilder.Entity<Tabulator>().HasOne(t => t.VotingLocation).WithMany(vl => vl.Tabulators);
+        modelBuilder.Entity<Tabulator>().HasOne(t => t.TabulatorType).WithMany(tt => tt.Tabulators);
 
         #endregion One-To-Many
 
 
         #region One-To-One
 
-        // nvm
+        modelBuilder.Entity<Original>().HasOne(o => o.Session).WithOne(s => s.Original);
 
         #endregion One-To-One
-
-
-        #region Primary Keys
-
-        modelBuilder.Entity<BallotType>().HasKey(bt => bt.Id);
-        modelBuilder.Entity<Candidate>().HasKey(c => c.Id);
-        modelBuilder.Entity<CandidateType>().HasKey(ct => ct.Id);
-        modelBuilder.Entity<Card>().HasKey(c => c.Id);
-        modelBuilder.Entity<CardContest>().HasKey(c => c.Id);
-        modelBuilder.Entity<Contest>().HasKey(c => c.Id);
-
-        #endregion Primary Keys
 
 
         #region Unique Constraints
 
         modelBuilder.Entity<BallotType>().HasIndex(bt => bt.Description).IsUnique();
         modelBuilder.Entity<CandidateType>().HasIndex(ct => ct.Description).IsUnique();
+        modelBuilder.Entity<ContestType>().HasIndex(ct => ct.Description).IsUnique();
+        modelBuilder.Entity<DistrictType>().HasIndex(dt => dt.Description).IsUnique();
+        modelBuilder.Entity<Jurisdiction>().HasIndex(j => j.Description).IsUnique();
+        modelBuilder.Entity<OutstackCondition>().HasIndex(oc => oc.Description).IsUnique();
+        modelBuilder.Entity<Party>().HasIndex(p => p.Description).IsUnique();
+        modelBuilder.Entity<Precinct>().HasIndex(p => p.Description).IsUnique();
+        modelBuilder.Entity<SessionType>().HasIndex(st => st.Description).IsUnique();
+        modelBuilder.Entity<TableVersion>().HasIndex(tv => new { tv.Name, tv.Version }).IsUnique();
+        modelBuilder.Entity<TabulatorType>().HasIndex(tt => tt.Description).IsUnique();
+        modelBuilder.Entity<VotingLocation>().HasIndex(vl => vl.Description).IsUnique();
 
         #endregion Unique Constraints
     }

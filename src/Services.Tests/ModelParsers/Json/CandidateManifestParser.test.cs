@@ -26,12 +26,12 @@ public class CandidateManifestParser
                                           }
                                           """;
 
+    private readonly (int CandidateId, int PartyId) _expectedCandidateAffiliation = new(524, 15);
+
     private readonly Candidate _expectedSingle = new()
     {
         Description = "Heikes, Gerald L.", Id = 524, ExternalId = "", ContestId = 6, CandidateTypeId = 999,
-        Disabled = false,
-        CandidateAffiliations =
-            new List<CandidateAffiliation>([new CandidateAffiliation { CandidateId = 524, PartyId = 15 }])
+        Disabled = false
     };
 
     [Test]
@@ -147,8 +147,8 @@ public class CandidateManifestParser
 
         await Assert.That(repository.AddCandidateAffiliation(Any(), Any())).WasCalled(Times.Once);
         await Assert
-            .That(repository.AddCandidateAffiliation(_expectedSingle.Id,
-                _expectedSingle.CandidateAffiliations.First().PartyId))
+            .That(repository.AddCandidateAffiliation(_expectedCandidateAffiliation.CandidateId,
+                _expectedCandidateAffiliation.PartyId))
             .WasCalled(Times.Once);
     }
 }

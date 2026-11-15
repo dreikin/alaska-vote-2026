@@ -1,7 +1,11 @@
-﻿namespace DataModel;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DataModel;
 
 public class TabulatorType
 {
-    public int Id { get; set; }
-    public string Description { get; set; }
+    [Key] public required int Id { get; set; }
+
+    public required string Description { get; set; }
+    public ICollection<Tabulator>? Tabulators { get; set; }
 }
