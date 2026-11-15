@@ -12,11 +12,11 @@ public enum RepositoryType
 
 public static class ImplementationDataSource
 {
-    public static IEnumerable<TestDataRow<RepositoryType>> Repositories()
+    public static IEnumerable<TestDataRow<(RepositoryType, string)>> Repositories()
     {
         // Repository.EntityFramework + DB.EntityFramework w/ in-memory DB.
-        yield return new TestDataRow<RepositoryType>(RepositoryType.EntityFramework,
-            "EntityFramework with in-memory SQLite database");
+        yield return new TestDataRow<(RepositoryType, string)>((RepositoryType.EntityFramework,
+            "EntityFramework with in-memory SQLite database"));
     }
 
     public static Repository.IVoteRepository GetRepository(RepositoryType repositoryType)
