@@ -4,7 +4,7 @@ public class FindOrAddCollectionVersion
 {
     [Test]
     [MethodDataSource(typeof(ImplementationDataSource), nameof(ImplementationDataSource.Repositories))]
-    [DisplayName("Returns the ID of a new row, using [$repoType] repository")]
+    [DisplayName("Returns the ID of a new row [$repoType]")]
     public async Task ReturnsTheId_OfA_NewRow(RepositoryType repositoryType, string repoType)
     {
         await using var repo = ImplementationDataSource.GetRepository(repositoryType);
@@ -15,7 +15,7 @@ public class FindOrAddCollectionVersion
 
     [Test]
     [MethodDataSource(typeof(ImplementationDataSource), nameof(ImplementationDataSource.Repositories))]
-    [DisplayName("Returns the ID of a previously added row, using [$repoType] repository")]
+    [DisplayName("Returns the ID of a previously added row [$repoType]")]
     public async Task ReturnsTheId_OfA_PreviouslyAddedRow(RepositoryType repositoryType, string repoType)
     {
         await using var repo = ImplementationDataSource.GetRepository(repositoryType);

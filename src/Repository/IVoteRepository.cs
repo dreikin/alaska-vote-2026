@@ -2,6 +2,8 @@
 
 namespace Repository;
 
+// TODO: Documentation comments
+// TODO: Custom Exception types
 public interface IVoteRepository : IDisposable, IAsyncDisposable
 {
     Task<int> FindOrAddCollectionVersion(string table, string version);

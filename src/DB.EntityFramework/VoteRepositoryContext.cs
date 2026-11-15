@@ -98,6 +98,7 @@ public class VoteRepositoryContext(DbContextOptions<VoteRepositoryContext> optio
         modelBuilder.Entity<BallotType>().HasIndex(bt => bt.Description).IsUnique();
         modelBuilder.Entity<CandidateType>().HasIndex(ct => ct.Description).IsUnique();
         modelBuilder.Entity<ContestType>().HasIndex(ct => ct.Description).IsUnique();
+        modelBuilder.Entity<CountingGroup>().HasIndex(cg => cg.Description).IsUnique();
         modelBuilder.Entity<DistrictType>().HasIndex(dt => dt.Description).IsUnique();
         modelBuilder.Entity<Jurisdiction>().HasIndex(j => j.Description).IsUnique();
         modelBuilder.Entity<OutstackCondition>().HasIndex(oc => oc.Description).IsUnique();

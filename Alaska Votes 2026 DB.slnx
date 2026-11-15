@@ -1,13 +1,14 @@
 <Solution>
     <Folder Name="/src/">
-        <Project Path="src/DataModel/DataModel.csproj"/>
-        <Project Path="src/DB.EntityFramework/DB.EntityFramework.csproj"/>
-        <Project Path="src/Repository.EntityFramework/Repository.EntityFramework.csproj"/>
-        <Project Path="src/Repository/Repository.csproj"/>
-        <Project Path="src/Services/Services.csproj"/>
+        <Project Path="src/DataModel/DataModel.csproj" />
+        <Project Path="src/DB.EntityFramework/DB.EntityFramework.csproj" />
+        <Project Path="src/Repository.EntityFramework/Repository.EntityFramework.csproj" />
+        <Project Path="src/Repository/Repository.csproj" />
+        <Project Path="src/Services/Services.csproj" />
     </Folder>
     <Folder Name="/tests/">
-        <Project Path="src/Services.Tests/Services.Tests.csproj"/>
-        <Project Path="src/Repository.Tests/Repository.Tests.csproj"/>
+        <Project Path="src/Services.Tests/Services.Tests.csproj" />
+        <Project Path="src/DataModel.Tests/DataModel.Tests.csproj" />
+        <Project Path="src/Repository.Tests/Repository.Tests.csproj" />
     </Folder>
 </Solution>

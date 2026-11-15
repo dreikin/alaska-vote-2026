@@ -1,6 +1,7 @@
 ﻿using DataModel;
 using DB.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Repository.Exceptions;
 
 namespace Repository.EntityFramework;
 
@@ -24,7 +25,26 @@ public class VoteRepository(VoteRepositoryContext context, bool repositoryOwnsCo
 
     public async Task<int> FindOrAddBallotType(BallotType item)
     {
-        throw new NotImplementedException();
+        var existing = await context.BallotTypes
+            .Where(t => t.Id == item.Id || t.Description == item.Description)
+            .ToListAsync();
+
+        switch (existing.Count)
+        {
+            case > 1:
+                throw new IdDescriptionConflictException();
+            case 1:
+            {
+                var first = existing.First();
+                if (first.Id != item.Id || first.Description != item.Description)
+                    throw new IdDescriptionConflictException();
+                return first.Id;
+            }
+        }
+
+        await context.BallotTypes.AddAsync(item);
+        await context.SaveChangesAsync();
+        return item.Id;
     }
 
     public async Task<int> AddCountingGroup(CountingGroup item)
