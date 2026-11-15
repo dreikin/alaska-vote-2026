@@ -4,8 +4,7 @@ namespace DataModel;
 
 public class ContestFilter
 {
-    [Key] public required int Id { get; set; }
-
-    public required int ConfigurationId { get; set; }
+    [Key] public int Id { get; set; }
+    [Required] public required int ConfigurationId { get; set; }
     public Configuration? Configuration { get; set; }
 }

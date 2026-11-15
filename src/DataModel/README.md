@@ -4,6 +4,8 @@
     - Have the `[Key]` attribute if simple.
     - Are the set of XyIds for many-to-many tables.
     - Are noted in a comment otherwise (e.g., composite keys).
+    - Are set to the default value for the type when they are meant to be set by the backing repository. For numbers,
+      this is `0`.
 - Conventions:
     - Many-to-many link models have four values: XyId, Xy, AbId, Ab. Any table fitting this format is a many-to-many
       link model unless otherwise noted in the model.
