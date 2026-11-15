@@ -2,7 +2,7 @@
 
 namespace Repository;
 
-public interface IVoteRepository
+public interface IVoteRepository : IDisposable, IAsyncDisposable
 {
     Task<int> FindOrAddCollectionVersion(string table, string version);
     Task<int> FindOrAddBallotType(BallotType item);

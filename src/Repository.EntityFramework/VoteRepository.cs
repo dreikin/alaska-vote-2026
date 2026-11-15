@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.EntityFramework;
 
-public class VoteRepository(VoteRepositoryContext context) : IVoteRepository
+public class VoteRepository(VoteRepositoryContext context, bool repositoryOwnsContext = false)
+    : IVoteRepository
 {
     public async Task<int> FindOrAddCollectionVersion(string name, string version)
     {
@@ -174,5 +175,15 @@ public class VoteRepository(VoteRepositoryContext context) : IVoteRepository
     public async Task<int> AddMarkOutstackCondition(int markId, int outstackConditionId)
     {
         throw new NotImplementedException();
+    }
+
+    public void Dispose()
+    {
+        if (repositoryOwnsContext) context.Dispose();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (repositoryOwnsContext) await context.DisposeAsync();
     }
 }

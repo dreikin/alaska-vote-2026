@@ -61,7 +61,7 @@ public class VoteRepositoryContext(DbContextOptions<VoteRepositoryContext> optio
         modelBuilder.Entity<Candidate>().HasOne(c => c.Contest).WithMany(c => c.Candidates);
         modelBuilder.Entity<Candidate>().HasOne(c => c.CandidateType).WithMany(ct => ct.Candidates);
         modelBuilder.Entity<Card>().HasOne(c => c.Original).WithMany(o => o.Cards);
-        modelBuilder.Entity<CardContest>().HasOne(cc => cc.Card).WithMany(c => CardContests);
+        modelBuilder.Entity<CardContest>().HasOne(cc => cc.Card).WithMany(c => c.CardContests);
         modelBuilder.Entity<CardContest>().HasOne(cc => cc.Contest).WithMany(c => c.CardContests);
         modelBuilder.Entity<Contest>().HasOne(c => c.District).WithMany(d => d.Contests);
         modelBuilder.Entity<Contest>().HasOne(c => c.ContestType).WithMany(ct => ct.Contests);

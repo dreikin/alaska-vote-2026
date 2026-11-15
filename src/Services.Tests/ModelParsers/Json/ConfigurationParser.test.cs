@@ -52,7 +52,7 @@ public class ConfigurationParser
     };
 
     [Test]
-    public async Task Parse_Adds_CountingGroup()
+    public async Task Parse_Adds_Configuration()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -82,10 +82,10 @@ public class ConfigurationParser
                 actual.IncludeBallotTypeFilter == _expected.IncludeBallotTypeFilter)))
             .WasCalled(Times.Once);
         await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.ContestFilter.Count == 0)))
+            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.ContestFilter?.Count == 0)))
             .WasCalled(Times.Once);
         await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.PrecinctPortionFilter.Count == 0)))
+            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.PrecinctPortionFilter?.Count == 0)))
             .WasCalled(Times.Once);
         await Assert
             .That(repository.SetConfiguration(Is<Configuration>(actual =>
@@ -123,7 +123,7 @@ public class ConfigurationParser
                 actual.TurnoutThreshold == _expected.TurnoutThreshold)))
             .WasCalled(Times.Once);
         await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.OutstackConditions.Count == 0)))
+            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.OutstackConditions?.Count == 0)))
             .WasCalled(Times.Once);
     }
 }
