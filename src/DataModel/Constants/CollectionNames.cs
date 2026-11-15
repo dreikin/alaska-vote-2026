@@ -29,7 +29,7 @@ public sealed class CollectionNames
     public const string PrecinctPortion = "PrecinctPortions";
     public const string Session = "Sessions";
     public const string SessionType = "SessionTypes";
-    public const string TableVersion = "TableVersions";
+    public const string CollectionVersion = "CollectionVersions";
     public const string Tabulator = "Tabulators";
     public const string TabulatorType = "TabulatorTypes";
     public const string VotingLocation = "VotingLocations";

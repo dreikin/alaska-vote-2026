@@ -4,8 +4,8 @@ namespace Repository;
 
 public interface IVoteRepository
 {
-    Task<int> AddTableVersion(string table, string version);
-    Task<int> AddBallotType(BallotType item);
+    Task<int> FindOrAddCollectionVersion(string table, string version);
+    Task<int> FindOrAddBallotType(BallotType item);
     Task<int> AddCountingGroup(CountingGroup item);
     Task<int> AddDistrictType(DistrictType item);
     Task<int> AddDistrict(District item);

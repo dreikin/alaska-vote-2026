@@ -2,7 +2,7 @@
 
 namespace DataModel;
 
-public class TableVersion
+public class CollectionVersion
 {
     [Key] public int Id { get; set; }
     [Required] public required string Name { get; set; }

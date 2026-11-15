@@ -14,9 +14,9 @@ public class TabulatorManifestParser : IJsonModelParser
             await JsonSerializer.DeserializeAsync<Manifest<JsonTabulator>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
 
-        await voteRepository.AddTableVersion(CollectionNames.Tabulator, manifest.Version);
-        await voteRepository.AddTableVersion(CollectionNames.TabulatorType, manifest.Version);
-        await voteRepository.AddTableVersion(CollectionNames.VotingLocation, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Tabulator, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.TabulatorType, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.VotingLocation, manifest.Version);
 
         foreach (var item in manifest.List)
         {

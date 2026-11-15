@@ -28,7 +28,7 @@ public class DistrictManifestParser
     };
 
     [Test]
-    public async Task Parse_Adds_TableVersion()
+    public async Task Parse_Adds_CollectionVersion()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -36,8 +36,8 @@ public class DistrictManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Once);
-        await Assert.That(repository.AddTableVersion(CollectionNames.District, "5.17.18.1")).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.District, "5.17.18.1")).WasCalled(Times.Once);
     }
 
     [Test]

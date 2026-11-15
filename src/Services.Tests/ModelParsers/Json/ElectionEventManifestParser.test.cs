@@ -70,7 +70,7 @@ public class ElectionEventManifestParser
     private readonly Jurisdiction _expectedSingleJurisdiction = new() { Id = 42, Description = "State of Alaska" };
 
     [Test]
-    public async Task Parse_Adds_TableVersion_For_ElectionEvent()
+    public async Task Parse_Adds_CollectionVersion_For_ElectionEvent()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -79,12 +79,13 @@ public class ElectionEventManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(2));
-        await Assert.That(repository.AddTableVersion(CollectionNames.ElectionEvent, "5.17.18.1")).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(2));
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.ElectionEvent, "5.17.18.1"))
+            .WasCalled(Times.Once);
     }
 
     [Test]
-    public async Task Parse_Adds_TableVersion_For_Jurisdiction()
+    public async Task Parse_Adds_CollectionVersion_For_Jurisdiction()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -93,8 +94,9 @@ public class ElectionEventManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(2));
-        await Assert.That(repository.AddTableVersion(CollectionNames.Jurisdiction, "5.17.18.1")).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(2));
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.Jurisdiction, "5.17.18.1"))
+            .WasCalled(Times.Once);
     }
 
     [Test]

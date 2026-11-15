@@ -34,7 +34,7 @@ public class TabulatorManifestParser
     };
 
     [Test]
-    public async Task Parse_Adds_TableVersion_For_Tabulator()
+    public async Task Parse_Adds_CollectionVersion_For_Tabulator()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -43,13 +43,13 @@ public class TabulatorManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(3));
-        await Assert.That(repository.AddTableVersion(CollectionNames.Tabulator, "5.17.18.1"))
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(3));
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.Tabulator, "5.17.18.1"))
             .WasCalled(Times.Once);
     }
 
     [Test]
-    public async Task Parse_Adds_TableVersion_For_TabulatorType()
+    public async Task Parse_Adds_CollectionVersion_For_TabulatorType()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -58,13 +58,13 @@ public class TabulatorManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(3));
-        await Assert.That(repository.AddTableVersion(CollectionNames.TabulatorType, "5.17.18.1"))
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(3));
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.TabulatorType, "5.17.18.1"))
             .WasCalled(Times.Once);
     }
 
     [Test]
-    public async Task Parse_Adds_TableVersion_For_VotingLocation()
+    public async Task Parse_Adds_CollectionVersion_For_VotingLocation()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -73,8 +73,8 @@ public class TabulatorManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(3));
-        await Assert.That(repository.AddTableVersion(CollectionNames.VotingLocation, "5.17.18.1"))
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(3));
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.VotingLocation, "5.17.18.1"))
             .WasCalled(Times.Once);
     }
 

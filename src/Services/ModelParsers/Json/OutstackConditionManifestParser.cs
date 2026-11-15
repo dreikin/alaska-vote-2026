@@ -13,7 +13,7 @@ public class OutstackConditionManifestParser : IJsonModelParser
         var manifest =
             await JsonSerializer.DeserializeAsync<Manifest<OutstackCondition>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
-        await voteRepository.AddTableVersion(CollectionNames.OutstackCondition, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.OutstackCondition, manifest.Version);
         foreach (var item in manifest.List) await voteRepository.AddOutstackCondition(item);
     }
 }

@@ -13,8 +13,8 @@ public class ContestManifestParser : IJsonModelParser
         var manifest =
             await JsonSerializer.DeserializeAsync<Manifest<JsonContest>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
-        await voteRepository.AddTableVersion(CollectionNames.Contest, manifest.Version);
-        await voteRepository.AddTableVersion(CollectionNames.ContestType, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Contest, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.ContestType, manifest.Version);
         foreach (var item in manifest.List)
         {
             var contestTypeId = await voteRepository.FindOrAddContestType(item.Type);

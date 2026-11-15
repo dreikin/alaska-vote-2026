@@ -14,9 +14,9 @@ public class CandidateManifestParser : IJsonModelParser
             await JsonSerializer.DeserializeAsync<Manifest<JsonCandidate>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
 
-        await voteRepository.AddTableVersion(CollectionNames.Candidate, manifest.Version);
-        await voteRepository.AddTableVersion(CollectionNames.CandidateType, manifest.Version);
-        await voteRepository.AddTableVersion(CollectionNames.CandidateAffiliation, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Candidate, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.CandidateType, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.CandidateAffiliation, manifest.Version);
 
         foreach (var item in manifest.List)
         {

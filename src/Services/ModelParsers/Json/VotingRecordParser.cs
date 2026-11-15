@@ -14,15 +14,15 @@ public class VotingRecordParser : IJsonModelParser
             await JsonSerializer.DeserializeAsync<JsonVotingRecord>(data, Common.JsonSerializerOptions);
         if (record is null) return;
 
-        await voteRepository.AddTableVersion(CollectionNames.SessionType, record.Version);
-        await voteRepository.AddTableVersion(CollectionNames.Session, record.Version);
-        await voteRepository.AddTableVersion(CollectionNames.Original, record.Version);
-        await voteRepository.AddTableVersion(CollectionNames.Card, record.Version);
-        await voteRepository.AddTableVersion(CollectionNames.CardOutstackCondition, record.Version);
-        await voteRepository.AddTableVersion(CollectionNames.CardContest, record.Version);
-        await voteRepository.AddTableVersion(CollectionNames.CardContestOutstackCondition, record.Version);
-        await voteRepository.AddTableVersion(CollectionNames.Mark, record.Version);
-        await voteRepository.AddTableVersion(CollectionNames.MarkOutstackCondition, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.SessionType, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Session, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Original, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Card, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.CardOutstackCondition, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.CardContest, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.CardContestOutstackCondition, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Mark, record.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.MarkOutstackCondition, record.Version);
 
         var electionId = await voteRepository.FindElection(record.ElectionId);
         foreach (var jsonSession in record.Sessions)

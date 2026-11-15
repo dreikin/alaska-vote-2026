@@ -13,7 +13,7 @@ public class CountingGroupManifestParser : IJsonModelParser
         var manifest =
             await JsonSerializer.DeserializeAsync<Manifest<CountingGroup>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
-        await voteRepository.AddTableVersion(CollectionNames.CountingGroup, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.CountingGroup, manifest.Version);
         foreach (var item in manifest.List) await voteRepository.AddCountingGroup(item);
     }
 }

@@ -22,7 +22,7 @@ public class BallotTypeContestManifestParser
     private readonly BallotTypeContest _expectedSingle = new() { BallotTypeId = 1, ContestId = 6 };
 
     [Test]
-    public async Task Parse_Adds_TableVersion()
+    public async Task Parse_Adds_CollectionVersion()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -30,8 +30,8 @@ public class BallotTypeContestManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Once);
-        await Assert.That(repository.AddTableVersion(CollectionNames.BallotTypeContest, "5.17.18.1"))
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.BallotTypeContest, "5.17.18.1"))
             .WasCalled(Times.Once);
     }
 

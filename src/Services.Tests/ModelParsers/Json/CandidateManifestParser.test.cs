@@ -35,7 +35,7 @@ public class CandidateManifestParser
     };
 
     [Test]
-    public async Task Parse_Adds_TableVersion_For_Candidate()
+    public async Task Parse_Adds_CollectionVersion_For_Candidate()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -45,12 +45,13 @@ public class CandidateManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(3));
-        await Assert.That(repository.AddTableVersion(CollectionNames.Candidate, "5.17.18.1")).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(3));
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.Candidate, "5.17.18.1"))
+            .WasCalled(Times.Once);
     }
 
     [Test]
-    public async Task Parse_Adds_TableVersion_For_CandidateType()
+    public async Task Parse_Adds_CollectionVersion_For_CandidateType()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -60,12 +61,13 @@ public class CandidateManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(3));
-        await Assert.That(repository.AddTableVersion(CollectionNames.CandidateType, "5.17.18.1")).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(3));
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.CandidateType, "5.17.18.1"))
+            .WasCalled(Times.Once);
     }
 
     [Test]
-    public async Task Parse_Adds_TableVersion_For_CandidateAffiliation()
+    public async Task Parse_Adds_CollectionVersion_For_CandidateAffiliation()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
@@ -75,8 +77,8 @@ public class CandidateManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(3));
-        await Assert.That(repository.AddTableVersion(CollectionNames.CandidateAffiliation, "5.17.18.1"))
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(3));
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.CandidateAffiliation, "5.17.18.1"))
             .WasCalled(Times.Once);
     }
 

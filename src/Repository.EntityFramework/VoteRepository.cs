@@ -1,15 +1,27 @@
 ﻿using DataModel;
+using DB.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.EntityFramework;
 
-public class VoteRepository : IVoteRepository
+public class VoteRepository(VoteRepositoryContext context) : IVoteRepository
 {
-    public async Task<int> AddTableVersion(string table, string version)
+    public async Task<int> FindOrAddCollectionVersion(string name, string version)
     {
-        throw new NotImplementedException();
+        var id = await context.CollectionVersions
+            .Where(t => t.Name == name && t.Version == version)
+            .Select(t => t.Id)
+            .SingleOrDefaultAsync();
+        if (id > 0) return id;
+
+        var collectionVersion = new CollectionVersion { Name = name, Version = version };
+        await context.CollectionVersions.AddAsync(collectionVersion);
+        await context.SaveChangesAsync();
+
+        return collectionVersion.Id;
     }
 
-    public async Task<int> AddBallotType(BallotType item)
+    public async Task<int> FindOrAddBallotType(BallotType item)
     {
         throw new NotImplementedException();
     }

@@ -13,7 +13,7 @@ public class PartyManifestParser : IJsonModelParser
         var manifest =
             await JsonSerializer.DeserializeAsync<Manifest<Party>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
-        await voteRepository.AddTableVersion(CollectionNames.Party, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Party, manifest.Version);
         foreach (var item in manifest.List) await voteRepository.AddParty(item);
     }
 }

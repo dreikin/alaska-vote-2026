@@ -14,8 +14,8 @@ public class ElectionEventManifestParser : IJsonModelParser
             await JsonSerializer.DeserializeAsync<Manifest<JsonElectionEvent>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
 
-        await voteRepository.AddTableVersion(CollectionNames.Jurisdiction, manifest.Version);
-        await voteRepository.AddTableVersion(CollectionNames.ElectionEvent, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Jurisdiction, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.ElectionEvent, manifest.Version);
 
         foreach (var item in manifest.List)
         {

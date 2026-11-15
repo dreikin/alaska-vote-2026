@@ -13,7 +13,7 @@ public class PrecinctManifestParser : IJsonModelParser
         var manifest =
             await JsonSerializer.DeserializeAsync<Manifest<Precinct>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
-        await voteRepository.AddTableVersion(CollectionNames.Precinct, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.Precinct, manifest.Version);
         foreach (var item in manifest.List) await voteRepository.AddPrecinct(item);
     }
 }

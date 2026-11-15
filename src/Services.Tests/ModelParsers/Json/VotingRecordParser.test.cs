@@ -161,7 +161,7 @@ public class VotingRecordParser
     [Arguments(CollectionNames.CardContestOutstackCondition)]
     [Arguments(CollectionNames.Mark)]
     [Arguments(CollectionNames.MarkOutstackCondition)]
-    public async Task Parse_Adds_TableVersion(string collectionName)
+    public async Task Parse_Adds_CollectionVersion(string collectionName)
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = CreateMockVoteRepository();
@@ -169,8 +169,8 @@ public class VotingRecordParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.AddTableVersion(Any(), Any())).WasCalled(Times.Exactly(9));
-        await Assert.That(repository.AddTableVersion(collectionName, "5.17.18.1")).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(9));
+        await Assert.That(repository.FindOrAddCollectionVersion(collectionName, "5.17.18.1")).WasCalled(Times.Once);
     }
 
     private static bool SessionsAreEqual(Session actual, Session expected)

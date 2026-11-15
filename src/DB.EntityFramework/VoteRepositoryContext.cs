@@ -3,8 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DB.EntityFramework;
 
-public class VoteRepositoryContext : DbContext
+public class VoteRepositoryContext(DbContextOptions<VoteRepositoryContext> options) : DbContext(options)
 {
+    // Many-to-many collections defined through convention:
+    // public DbSet<BallotTypeContest> BallotTypeContests { get; set; }
+    // public DbSet<CandidateAffiliation> CandidateAffiliations { get; set; } // candidate <-> party)
+    // public DbSet<CardContestOutstackCondition> CardContestOutstackConditions { get; set; }
+    // public DbSet<CardOutstackCondition> CardOutstackConditions { get; set; }
+    // public DbSet<MarkOutstackCondition> MarkOutstackConditions { get; set; }
+    // public DbSet<DistrictPrecinctPortion> DistrictPrecinctPortions { get; set; }
+
     public DbSet<BallotType> BallotTypes { get; set; }
     public DbSet<Candidate> Candidates { get; set; }
     public DbSet<CandidateType> CandidateTypes { get; set; }
@@ -27,18 +35,10 @@ public class VoteRepositoryContext : DbContext
     public DbSet<PrecinctPortion> PrecinctPortions { get; set; }
     public DbSet<Session> Sessions { get; set; }
     public DbSet<SessionType> SessionTypes { get; set; }
-    public DbSet<TableVersion> TableVersions { get; set; }
+    public DbSet<CollectionVersion> CollectionVersions { get; set; }
     public DbSet<Tabulator> Tabulators { get; set; }
     public DbSet<TabulatorType> TabulatorTypes { get; set; }
     public DbSet<VotingLocation> VotingLocations { get; set; }
-
-    // Many-to-many collections defined through convention:
-    // public DbSet<BallotTypeContest> BallotTypeContests { get; set; }
-    // public DbSet<CandidateAffiliation> CandidateAffiliations { get; set; } // candidate <-> party)
-    // public DbSet<CardContestOutstackCondition> CardContestOutstackConditions { get; set; }
-    // public DbSet<CardOutstackCondition> CardOutstackConditions { get; set; }
-    // public DbSet<MarkOutstackCondition> MarkOutstackConditions { get; set; }
-    // public DbSet<DistrictPrecinctPortion> DistrictPrecinctPortions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -104,7 +104,7 @@ public class VoteRepositoryContext : DbContext
         modelBuilder.Entity<Party>().HasIndex(p => p.Description).IsUnique();
         modelBuilder.Entity<Precinct>().HasIndex(p => p.Description).IsUnique();
         modelBuilder.Entity<SessionType>().HasIndex(st => st.Description).IsUnique();
-        modelBuilder.Entity<TableVersion>().HasIndex(tv => new { tv.Name, tv.Version }).IsUnique();
+        modelBuilder.Entity<CollectionVersion>().HasIndex(tv => new { tv.Name, tv.Version }).IsUnique();
         modelBuilder.Entity<TabulatorType>().HasIndex(tt => tt.Description).IsUnique();
         modelBuilder.Entity<VotingLocation>().HasIndex(vl => vl.Description).IsUnique();
 

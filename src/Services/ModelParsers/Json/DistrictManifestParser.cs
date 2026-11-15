@@ -13,7 +13,7 @@ public class DistrictManifestParser : IJsonModelParser
         var manifest =
             await JsonSerializer.DeserializeAsync<Manifest<District>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
-        await voteRepository.AddTableVersion(CollectionNames.District, manifest.Version);
+        await voteRepository.FindOrAddCollectionVersion(CollectionNames.District, manifest.Version);
         foreach (var item in manifest.List) await voteRepository.AddDistrict(item);
     }
 }
