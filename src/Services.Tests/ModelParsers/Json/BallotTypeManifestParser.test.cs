@@ -46,9 +46,9 @@ public class BallotTypeManifestParser
 
         await parser.Parse(stream, repository);
 
-        await Assert.That(repository.FindOrAddBallotType(Any())).WasCalled(Times.Once);
+        await Assert.That(repository.AddBallotType(Any())).WasCalled(Times.Once);
         await Assert
-            .That(repository.FindOrAddBallotType(Is<BallotType>(actual => comparer.Equals(actual, _expectedSingle))))
+            .That(repository.AddBallotType(Is<BallotType>(actual => comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

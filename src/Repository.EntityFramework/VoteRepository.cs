@@ -23,23 +23,18 @@ public class VoteRepository(VoteRepositoryContext context, bool repositoryOwnsCo
         return collectionVersion.Id;
     }
 
-    public async Task<int> FindOrAddBallotType(BallotType item)
+    public async Task<int> AddBallotType(BallotType item)
     {
+        if (item.Id <= 0) throw new InvalidIdException();
+
         var existing = await context.BallotTypes
             .Where(t => t.Id == item.Id || t.Description == item.Description)
             .ToListAsync();
 
-        switch (existing.Count)
+        if (existing.Count > 0)
         {
-            case > 1:
-                throw new IdDescriptionConflictException();
-            case 1:
-            {
-                var first = existing.First();
-                if (first.Id != item.Id || first.Description != item.Description)
-                    throw new IdDescriptionConflictException();
-                return first.Id;
-            }
+            if (existing.Any(e => e.Id == item.Id)) throw new IdAlreadyInUseException();
+            throw new DescriptionHasDifferentIdException();
         }
 
         await context.BallotTypes.AddAsync(item);

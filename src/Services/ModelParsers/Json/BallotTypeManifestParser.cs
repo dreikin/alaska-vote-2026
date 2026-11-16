@@ -13,6 +13,6 @@ public class BallotTypeManifestParser : IJsonModelParser
         var manifest = await JsonSerializer.DeserializeAsync<Manifest<BallotType>>(data, Common.JsonSerializerOptions);
         if (manifest is null) return;
         await voteRepository.FindOrAddCollectionVersion(CollectionNames.BallotType, manifest.Version);
-        foreach (var item in manifest.List) await voteRepository.FindOrAddBallotType(item);
+        foreach (var item in manifest.List) await voteRepository.AddBallotType(item);
     }
 }

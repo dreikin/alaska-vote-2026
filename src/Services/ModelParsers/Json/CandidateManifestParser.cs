@@ -27,7 +27,7 @@ public class CandidateManifestParser : IJsonModelParser
         }
     }
 
-    private Candidate ConvertJsonToModel(JsonCandidate jsonCandidate, int candidateTypeId)
+    private static Candidate ConvertJsonToModel(JsonCandidate jsonCandidate, int candidateTypeId)
     {
         return new Candidate
         {
