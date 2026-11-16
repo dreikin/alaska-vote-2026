@@ -27,4 +27,9 @@ public class Configuration
     [Required] public required int CvrSuppressionType { get; set; }
     [Required] public required int TurnoutThreshold { get; set; }
     public ICollection<OutstackCondition>? OutstackConditions { get; set; }
+
+    public Configuration ShallowCopy()
+    {
+        return (Configuration)MemberwiseClone();
+    }
 }

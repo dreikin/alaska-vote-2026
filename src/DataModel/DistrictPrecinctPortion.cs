@@ -6,4 +6,9 @@ public class DistrictPrecinctPortion
     public District? District { get; set; }
     public required int PrecinctPortionId { get; set; }
     public PrecinctPortion? PrecinctPortion { get; set; }
+
+    public DistrictPrecinctPortion ShallowCopy()
+    {
+        return (DistrictPrecinctPortion)MemberwiseClone();
+    }
 }

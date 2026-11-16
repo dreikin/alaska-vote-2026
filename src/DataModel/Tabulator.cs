@@ -16,4 +16,9 @@ public class Tabulator
     [Required] public required int WriteThresholdMin { get; set; }
     [Required] public required int WriteThresholdMax { get; set; }
     public ICollection<Session>? Sessions { get; set; }
+
+    public Tabulator ShallowCopy()
+    {
+        return (Tabulator)MemberwiseClone();
+    }
 }

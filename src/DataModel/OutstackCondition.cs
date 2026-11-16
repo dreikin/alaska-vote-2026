@@ -10,4 +10,9 @@ public class OutstackCondition
     public ICollection<Card>? Cards { get; set; }
     public ICollection<Configuration>? Configurations { get; set; }
     public ICollection<Mark>? Marks { get; set; }
+
+    public OutstackCondition ShallowCopy()
+    {
+        return (OutstackCondition)MemberwiseClone();
+    }
 }

@@ -8,4 +8,9 @@ public class DistrictType
     [Required] public required string Description { get; set; }
     public string? ExternalId { get; set; }
     public ICollection<District>? Districts { get; set; }
+
+    public DistrictType ShallowCopy()
+    {
+        return (DistrictType)MemberwiseClone();
+    }
 }

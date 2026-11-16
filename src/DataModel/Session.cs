@@ -23,4 +23,9 @@ public class Session
     public string? VotingSessionIdentifier { get; set; }
     public string? UniqueVotingIdentifier { get; set; }
     public Original? Original { get; set; }
+
+    public Session ShallowCopy()
+    {
+        return (Session)MemberwiseClone();
+    }
 }

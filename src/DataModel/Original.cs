@@ -13,4 +13,9 @@ public class Original
     [Required] public required int SessionId { get; set; }
     public Session? Session { get; set; }
     public ICollection<Card>? Cards { get; set; }
+
+    public Original ShallowCopy()
+    {
+        return (Original)MemberwiseClone();
+    }
 }

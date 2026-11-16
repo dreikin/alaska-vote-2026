@@ -14,4 +14,9 @@ public class CardContest
     [Required] public required int Overvotes { get; set; }
     public ICollection<OutstackCondition>? OutstackConditions { get; set; }
     public ICollection<Mark>? Marks { get; set; }
+
+    public CardContest ShallowCopy()
+    {
+        return (CardContest)MemberwiseClone();
+    }
 }

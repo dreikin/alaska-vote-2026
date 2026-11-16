@@ -6,9 +6,14 @@ public class BallotTypeContest
     public BallotType? BallotType { get; set; }
     public required int ContestId { get; set; }
     public Contest? Contest { get; set; }
+
+    public BallotTypeContest ShallowCopy()
+    {
+        return (BallotTypeContest)MemberwiseClone();
+    }
 }
 
-public class BallotTypeContestEqualityComparer : IEqualityComparer<BallotTypeContest>
+public class BallotTypeContestValueEqualityComparer : IEqualityComparer<BallotTypeContest>
 {
     public bool Equals(BallotTypeContest? x, BallotTypeContest? y)
     {

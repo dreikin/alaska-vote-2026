@@ -24,4 +24,9 @@ public class Contest
     public ICollection<BallotType>? BallotTypes { get; set; }
     public ICollection<Candidate>? Candidates { get; set; }
     public ICollection<CardContest>? CardContests { get; set; }
+
+    public Contest ShallowCopy()
+    {
+        return (Contest)MemberwiseClone();
+    }
 }

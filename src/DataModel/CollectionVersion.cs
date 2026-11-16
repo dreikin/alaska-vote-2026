@@ -7,4 +7,9 @@ public class CollectionVersion
     [Key] public int Id { get; set; }
     [Required] public required string Name { get; set; }
     [Required] public required string Version { get; set; }
+
+    public CollectionVersion ShallowCopy()
+    {
+        return (CollectionVersion)MemberwiseClone();
+    }
 }

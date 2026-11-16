@@ -11,4 +11,9 @@ public class District
     public DistrictType? DistrictType { get; set; }
     public ICollection<Contest>? Contests { get; set; }
     public ICollection<PrecinctPortion>? PrecinctPortions { get; set; }
+
+    public District ShallowCopy()
+    {
+        return (District)MemberwiseClone();
+    }
 }

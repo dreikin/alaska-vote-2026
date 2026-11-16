@@ -9,9 +9,14 @@ public class BallotType
     public string? ExternalId { get; set; }
     public ICollection<Contest>? Contests { get; set; }
     public ICollection<Original>? Originals { get; set; }
+
+    public BallotType ShallowCopy()
+    {
+        return (BallotType)MemberwiseClone();
+    }
 }
 
-public class BallotTypeEqualityComparer : IEqualityComparer<BallotType>
+public class BallotTypeValueEqualityComparer : IEqualityComparer<BallotType>
 {
     public bool Equals(BallotType? x, BallotType? y)
     {

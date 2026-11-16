@@ -7,4 +7,9 @@ public class ContestFilter
     [Key] public int Id { get; set; }
     [Required] public required int ConfigurationId { get; set; }
     public Configuration? Configuration { get; set; }
+
+    public ContestFilter ShallowCopy()
+    {
+        return (ContestFilter)MemberwiseClone();
+    }
 }

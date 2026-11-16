@@ -9,4 +9,9 @@ public class Party
     public string? ExternalId { get; set; }
     public ICollection<Candidate>? CandidateAffiliations { get; set; }
     public ICollection<Mark>? Marks { get; set; }
+
+    public Party ShallowCopy()
+    {
+        return (Party)MemberwiseClone();
+    }
 }

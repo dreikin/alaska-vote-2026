@@ -17,4 +17,9 @@ public class Mark
     [Required] public required bool IsAmbiguous { get; set; }
     [Required] public required bool IsVote { get; set; }
     public ICollection<OutstackCondition>? OutstackConditions { get; set; }
+
+    public Mark ShallowCopy()
+    {
+        return (Mark)MemberwiseClone();
+    }
 }

@@ -6,4 +6,9 @@ public class CardContestOutstackCondition
     public CardContest? CardContest { get; set; }
     public required int OutstackConditionId { get; set; }
     public OutstackCondition? OutstackCondition { get; set; }
+
+    public CardContestOutstackCondition ShallowCopy()
+    {
+        return (CardContestOutstackCondition)MemberwiseClone();
+    }
 }

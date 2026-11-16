@@ -11,4 +11,9 @@ public class PrecinctPortion
     public Precinct? Precinct { get; set; }
     public ICollection<District>? Districts { get; set; }
     public ICollection<Original>? Originals { get; set; }
+
+    public PrecinctPortion ShallowCopy()
+    {
+        return (PrecinctPortion)MemberwiseClone();
+    }
 }

@@ -8,4 +8,9 @@ public class Precinct
     [Required] public required string Description { get; set; }
     public string? ExternalId { get; set; }
     public ICollection<PrecinctPortion>? PrecinctPortions { get; set; }
+
+    public Precinct ShallowCopy()
+    {
+        return (Precinct)MemberwiseClone();
+    }
 }

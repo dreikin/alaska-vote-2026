@@ -16,4 +16,9 @@ public class ElectionEvent
     // TODO: Data annotation - 32 bytes
     [Required] [MaxLength(32)] public required byte[] ElectionSignature { get; set; }
     public ICollection<Session>? Sessions { get; set; }
+
+    public ElectionEvent ShallowCopy()
+    {
+        return (ElectionEvent)MemberwiseClone();
+    }
 }

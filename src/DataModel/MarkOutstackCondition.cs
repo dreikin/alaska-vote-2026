@@ -6,4 +6,9 @@ public class MarkOutstackCondition
     public Mark? Mark { get; set; }
     public required int OutstackConditionId { get; set; }
     public OutstackCondition? OutstackCondition { get; set; }
+
+    public MarkOutstackCondition ShallowCopy()
+    {
+        return (MarkOutstackCondition)MemberwiseClone();
+    }
 }

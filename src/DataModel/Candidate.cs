@@ -14,9 +14,14 @@ public class Candidate
     [Required] public required bool Disabled { get; set; }
     public ICollection<Mark>? Marks { get; set; }
     public ICollection<Party>? PartyAffiliations { get; set; }
+
+    public Candidate ShallowCopy()
+    {
+        return (Candidate)MemberwiseClone();
+    }
 }
 
-public class CandidateEqualityComparer : IEqualityComparer<Candidate>
+public class CandidateValueEqualityComparer : IEqualityComparer<Candidate>
 {
     public bool Equals(Candidate? x, Candidate? y)
     {
