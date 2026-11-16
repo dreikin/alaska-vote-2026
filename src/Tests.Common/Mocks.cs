@@ -2,9 +2,10 @@
 // Rider want both the public getter and private backing field to have the same name.
 
 using System.Security.Cryptography;
+using DataModel;
 using DataModel.Constants;
 
-namespace DataModel.Tests;
+namespace Tests.Common;
 
 public static class Mocks
 {
@@ -113,8 +114,6 @@ public static class Mocks
         Disabled = false,
         ContestTypeId = 1
     };
-
-    public static Contest Contest = _contest.ShallowCopy();
 
     private static readonly ContestFilter _contestFilter = new()
     {
@@ -281,6 +280,8 @@ public static class Mocks
         Id = 1,
         Description = "Fishing Pier 6"
     };
+
+    public static Contest Contest => _contest.ShallowCopy();
 
     public static BallotType BallotType => _ballotType.ShallowCopy();
 

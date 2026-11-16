@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Tests.Common;
 
 namespace DataModel.Tests;
 
@@ -47,7 +48,7 @@ public class BallotTypeValueEqualityComparer
         var b = Mocks.BallotType;
         var comparer = new DataModel.BallotTypeValueEqualityComparer();
 
-        var result = Equals(a, b);
+        var result = comparer.Equals(a, b);
 
         await Assert.That(result).IsTrue();
     }

@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: ExcludeFromCodeCoverage]
 
-namespace Services.Tests.SampleTests;
+namespace Tests.Common.Samples;
 
 public static class GlobalHooks
 {

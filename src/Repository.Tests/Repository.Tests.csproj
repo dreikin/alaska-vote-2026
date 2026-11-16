@@ -16,6 +16,7 @@
         <ProjectReference Include="..\DB.EntityFramework\DB.EntityFramework.csproj"/>
         <ProjectReference Include="..\Repository.EntityFramework\Repository.EntityFramework.csproj"/>
         <ProjectReference Include="..\Repository\Repository.csproj"/>
+        <ProjectReference Include="..\Tests.Common\Tests.Common.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace Services.Tests.SampleTests.Data;
+namespace Tests.Common.Samples.Data;
 
 public class AdditionDataGeneratorAttribute : DataSourceGeneratorAttribute<int, int, int>
 {

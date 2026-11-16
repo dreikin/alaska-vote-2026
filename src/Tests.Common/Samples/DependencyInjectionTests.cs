@@ -1,6 +1,6 @@
-using Services.Tests.SampleTests.Data;
+using Tests.Common.Samples.Data;
 
-namespace Services.Tests.SampleTests;
+namespace Tests.Common.Samples;
 
 public class DependencyInjectionTests
 {

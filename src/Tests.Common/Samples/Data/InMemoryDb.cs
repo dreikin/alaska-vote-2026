@@ -1,10 +1,17 @@
 using TUnit.Core.Interfaces;
 
-namespace Services.Tests.SampleTests.Data;
+namespace Tests.Common.Samples.Data;
 
 public class InMemoryDb : IAsyncInitializer, IAsyncDisposable
 {
     private Dictionary<string, string> _store = null!;
+
+    public ValueTask DisposeAsync()
+    {
+        // Simulate async teardown - e.g. closing connections, removing containers
+        _store.Clear();
+        return ValueTask.CompletedTask;
+    }
 
     public Task InitializeAsync()
     {
@@ -23,12 +30,5 @@ public class InMemoryDb : IAsyncInitializer, IAsyncDisposable
     {
         _store.TryGetValue(key, out var value);
         return Task.FromResult(value);
-    }
-
-    public ValueTask DisposeAsync()
-    {
-        // Simulate async teardown - e.g. closing connections, removing containers
-        _store.Clear();
-        return ValueTask.CompletedTask;
     }
 }

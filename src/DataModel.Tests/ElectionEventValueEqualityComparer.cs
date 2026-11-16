@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
+using Tests.Common;
 
 namespace DataModel.Tests;
 
