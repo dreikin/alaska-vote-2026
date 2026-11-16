@@ -43,19 +43,14 @@ public class PrecinctManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.PrecinctManifestParser();
+        var comparer = new PrecinctValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddPrecinct(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddPrecinct(Is<Precinct>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddPrecinct(Is<Precinct>(actual => actual.Id == _expectedSingle.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddPrecinct(Is<Precinct>(actual => actual.ExternalId == _expectedSingle.ExternalId)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

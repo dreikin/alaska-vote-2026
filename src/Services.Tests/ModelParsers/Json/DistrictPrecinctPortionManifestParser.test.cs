@@ -44,17 +44,14 @@ public class DistrictPrecinctPortionManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.DistrictPrecinctPortionManifestParser();
+        var comparer = new DistrictPrecinctPortionValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddDistrictPrecinctPortion(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddDistrictPrecinctPortion(Is<DistrictPrecinctPortion>(actual =>
-                actual.DistrictId == _expectedSingle.DistrictId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddDistrictPrecinctPortion(Is<DistrictPrecinctPortion>(actual =>
-                actual.PrecinctPortionId == _expectedSingle.PrecinctPortionId)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

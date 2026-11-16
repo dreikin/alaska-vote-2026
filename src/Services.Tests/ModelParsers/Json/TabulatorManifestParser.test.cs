@@ -85,44 +85,14 @@ public class TabulatorManifestParser
         var repository = IVoteRepository.Mock();
         repository.FindOrAddTabulatorType(Any()).ReturnsAsync(Task.FromResult(5));
         var parser = new Services.ModelParsers.Json.TabulatorManifestParser();
+        var comparer = new TabulatorValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddTabulator(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddTabulator(Is<Tabulator>(actual =>
-                actual.Description == _expectedSingleTabulator.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddTabulator(Is<Tabulator>(actual => actual.Id == _expectedSingleTabulator.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddTabulator(Is<Tabulator>(actual =>
-                actual.ExternalId == _expectedSingleTabulator.ExternalId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddTabulator(Is<Tabulator>(actual =>
-                actual.VotingLocationId == _expectedSingleTabulator.VotingLocationId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddTabulator(Is<Tabulator>(actual =>
-                actual.TabulatorTypeId == _expectedSingleTabulator.TabulatorTypeId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddTabulator(Is<Tabulator>(actual =>
-                actual.ThresholdMin == _expectedSingleTabulator.ThresholdMin)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddTabulator(Is<Tabulator>(actual =>
-                actual.ThresholdMax == _expectedSingleTabulator.ThresholdMax)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddTabulator(Is<Tabulator>(actual =>
-                actual.WriteThresholdMin == _expectedSingleTabulator.WriteThresholdMin)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddTabulator(Is<Tabulator>(actual =>
-                actual.WriteThresholdMax == _expectedSingleTabulator.WriteThresholdMax)))
+                comparer.Equals(actual, _expectedSingleTabulator))))
             .WasCalled(Times.Once);
     }
 

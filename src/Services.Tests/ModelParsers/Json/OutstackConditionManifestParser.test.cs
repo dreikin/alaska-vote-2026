@@ -42,16 +42,14 @@ public class OutstackConditionManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.OutstackConditionManifestParser();
+        var comparer = new OutstackConditionValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddOutstackCondition(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddOutstackCondition(Is<OutstackCondition>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddOutstackCondition(Is<OutstackCondition>(actual => actual.Id == _expectedSingle.Id)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

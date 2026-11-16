@@ -43,20 +43,14 @@ public class DistrictTypeManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.DistrictTypeManifestParser();
+        var comparer = new DistrictTypeValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddDistrictType(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddDistrictType(Is<DistrictType>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddDistrictType(Is<DistrictType>(actual => actual.Id == _expectedSingle.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddDistrictType(Is<DistrictType>(actual =>
-                actual.ExternalId == _expectedSingle.ExternalId)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

@@ -41,17 +41,12 @@ public class BallotTypeContestManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.BallotTypeContestManifestParser();
+        var comparer = new BallotTypeContestValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddBallotTypeContest(Any())).WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddBallotTypeContest(Is<BallotTypeContest>(actual =>
-                actual.BallotTypeId == _expectedSingle.BallotTypeId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddBallotTypeContest(Is<BallotTypeContest>(actual =>
-                actual.ContestId == _expectedSingle.ContestId)))
-            .WasCalled(Times.Once);
+        await Assert.That(repository.AddBallotTypeContest(Is<BallotTypeContest>(actual =>
+            comparer.Equals(actual, _expectedSingle)))).WasCalled(Times.Once);
     }
 }

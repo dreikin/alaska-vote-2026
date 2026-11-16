@@ -43,19 +43,14 @@ public class PartyManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.PartyManifestParser();
+        var comparer = new PartyValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddParty(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddParty(Is<Party>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddParty(Is<Party>(actual => actual.Id == _expectedSingle.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddParty(Is<Party>(actual => actual.ExternalId == _expectedSingle.ExternalId)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

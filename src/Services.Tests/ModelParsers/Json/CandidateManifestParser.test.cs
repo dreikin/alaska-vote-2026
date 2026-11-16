@@ -90,32 +90,14 @@ public class CandidateManifestParser
         repository.FindOrAddCandidateType(Any()).ReturnsAsync(Task.FromResult(999));
         repository.AddCandidate(Any<Candidate>()).ReturnsAsync(candidate => Task.FromResult(candidate.Id));
         var parser = new Services.ModelParsers.Json.CandidateManifestParser();
+        var comparer = new CandidateValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddCandidate(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddCandidate(Is<Candidate>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddCandidate(Is<Candidate>(actual => actual.Id == _expectedSingle.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddCandidate(Is<Candidate>(actual =>
-                actual.ExternalId == _expectedSingle.ExternalId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddCandidate(Is<Candidate>(actual =>
-                actual.ContestId == _expectedSingle.ContestId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddCandidate(Is<Candidate>(actual =>
-                actual.CandidateTypeId == _expectedSingle.CandidateTypeId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddCandidate(Is<Candidate>(actual =>
-                actual.Disabled == _expectedSingle.Disabled)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 

@@ -42,20 +42,14 @@ public class CountingGroupManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.CountingGroupManifestParser();
+        var comparer = new CountingGroupValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddCountingGroup(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddCountingGroup(Is<CountingGroup>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddCountingGroup(Is<CountingGroup>(actual => actual.Id == _expectedSingle.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddCountingGroup(Is<CountingGroup>(actual =>
-                actual.ExternalId == _expectedSingle.ExternalId)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

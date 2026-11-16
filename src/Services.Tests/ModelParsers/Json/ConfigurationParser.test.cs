@@ -57,73 +57,14 @@ public class ConfigurationParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.ConfigurationParser();
+        var comparer = new ConfigurationValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.SetConfiguration(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.IncludeTabulatorFilter == _expected.IncludeTabulatorFilter)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.TabulatorFilterValue == _expected.TabulatorFilterValue)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.IncludeResultContainerFilter == _expected.IncludeResultContainerFilter)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.ResultContainerFilterValue == _expected.ResultContainerFilterValue)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.IncludeBallotTypeFilter == _expected.IncludeBallotTypeFilter)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.ContestFilter?.Count == 0)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.PrecinctPortionFilter?.Count == 0)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.SplitFilesPerBatch == _expected.SplitFilesPerBatch)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.IncludeOnlyPublishedResultContainers == _expected.IncludeOnlyPublishedResultContainers)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.UseTabulatorFormat == _expected.UseTabulatorFormat)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.IncludeSessionDetails == _expected.IncludeSessionDetails)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.IncludeMarkDensity == _expected.IncludeMarkDensity)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.CvrType == _expected.CvrType)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.CvrTurnoutTest == _expected.CvrTurnoutTest)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.CvrSuppressionType == _expected.CvrSuppressionType)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual =>
-                actual.TurnoutThreshold == _expected.TurnoutThreshold)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.SetConfiguration(Is<Configuration>(actual => actual.OutstackConditions?.Count == 0)))
+                comparer.Equals(actual, _expected))))
             .WasCalled(Times.Once);
     }
 }

@@ -43,7 +43,8 @@ public class ContestManifestParser
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Exactly(2));
-        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.Contest, "5.17.18.1")).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.Contest, "5.17.18.1"))
+            .WasCalled(Times.Once);
     }
 
     [Test]
@@ -68,44 +69,14 @@ public class ContestManifestParser
         var repository = IVoteRepository.Mock();
         repository.FindOrAddContestType(Any()).ReturnsAsync(Task.FromResult(_expectedSingle.ContestTypeId));
         var parser = new Services.ModelParsers.Json.ContestManifestParser();
+        var comparer = new ContestValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddContest(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddContest(Is<Contest>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddContest(Is<Contest>(actual => actual.Id == _expectedSingle.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddContest(Is<Contest>(actual =>
-                actual.ExternalId == _expectedSingle.ExternalId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddContest(Is<Contest>(actual =>
-                actual.DistrictId == _expectedSingle.DistrictId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddContest(Is<Contest>(actual =>
-                actual.VoteFor == _expectedSingle.VoteFor)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddContest(Is<Contest>(actual =>
-                actual.NumOfRanks == _expectedSingle.NumOfRanks)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddContest(Is<Contest>(actual =>
-                actual.NumOfWriteins == _expectedSingle.NumOfWriteins)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddContest(Is<Contest>(actual =>
-                actual.Disabled == _expectedSingle.Disabled)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddContest(Is<Contest>(actual =>
-                actual.ContestTypeId == _expectedSingle.ContestTypeId)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 

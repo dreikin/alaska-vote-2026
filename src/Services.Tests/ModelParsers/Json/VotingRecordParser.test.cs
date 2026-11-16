@@ -173,41 +173,21 @@ public class VotingRecordParser
         await Assert.That(repository.FindOrAddCollectionVersion(collectionName, "5.17.18.1")).WasCalled(Times.Once);
     }
 
-    private static bool SessionsAreEqual(Session actual, Session expected)
-    {
-        return actual.ElectionEventId == expected.ElectionEventId
-               && actual.TabulatorId == expected.TabulatorId
-               && actual.BatchId == expected.BatchId
-               && actual.RecordId == expected.RecordId
-               && actual.CountingGroupId == expected.CountingGroupId
-               && actual.ImageMask == expected.ImageMask
-               && actual.SessionTypeId == expected.SessionTypeId
-               && actual.VotingSessionIdentifier == expected.VotingSessionIdentifier
-               && actual.UniqueVotingIdentifier == expected.UniqueVotingIdentifier;
-    }
-
     [Test]
     public async Task Parse_Adds_Session()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = CreateMockVoteRepository();
         var parser = new Services.ModelParsers.Json.VotingRecordParser();
+        var comparer = new SessionValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddSession(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddSession(Is<Session>(actual =>
-                SessionsAreEqual(actual, _expectedSession))))
+                comparer.Equals(actual, _expectedSession))))
             .WasCalled(Times.Once);
-    }
-
-    private static bool OriginalsAreEqual(Original actual, Original expected)
-    {
-        return actual.PrecinctPortionId == expected.PrecinctPortionId
-               && actual.BallotTypeId == expected.BallotTypeId
-               && actual.IsCurrent == expected.IsCurrent
-               && actual.SessionId == expected.SessionId;
     }
 
     [Test]
@@ -216,22 +196,15 @@ public class VotingRecordParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = CreateMockVoteRepository();
         var parser = new Services.ModelParsers.Json.VotingRecordParser();
+        var comparer = new OriginalValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddOriginal(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddOriginal(Is<Original>(actual =>
-                OriginalsAreEqual(actual, _expectedOriginal))))
+                comparer.Equals(actual, _expectedOriginal))))
             .WasCalled(Times.Once);
-    }
-
-    private static bool CardsAreEqual(Card actual, Card expected)
-    {
-        return actual.CardId == expected.CardId
-               && actual.KeyInId == expected.KeyInId
-               && actual.PaperIndex == expected.PaperIndex
-               && actual.OriginalId == expected.OriginalId;
     }
 
     [Test]
@@ -240,13 +213,14 @@ public class VotingRecordParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = CreateMockVoteRepository();
         var parser = new Services.ModelParsers.Json.VotingRecordParser();
+        var comparer = new CardValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddCard(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddCard(Is<Card>(actual =>
-                CardsAreEqual(actual, _expectedCard))))
+                comparer.Equals(actual, _expectedCard))))
             .WasCalled(Times.Once);
     }
 
@@ -266,28 +240,20 @@ public class VotingRecordParser
             .WasCalled(Times.Once);
     }
 
-    private static bool CardContestsAreEqual(CardContest actual, CardContest expected)
-    {
-        return actual.ManifestationId == expected.ManifestationId
-               && actual.CardId == expected.CardId
-               && actual.ContestId == expected.ContestId
-               && actual.Undervotes == expected.Undervotes
-               && actual.Overvotes == expected.Overvotes;
-    }
-
     [Test]
     public async Task Parse_Adds_CardContest()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = CreateMockVoteRepository();
         var parser = new Services.ModelParsers.Json.VotingRecordParser();
+        var comparer = new CardContestValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddCardContest(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddCardContest(Is<CardContest>(actual =>
-                CardContestsAreEqual(actual, _expectedCardContest))))
+                comparer.Equals(actual, _expectedCardContest))))
             .WasCalled(Times.Once);
     }
 
@@ -307,31 +273,20 @@ public class VotingRecordParser
             .WasCalled(Times.Once);
     }
 
-    private static bool MarksAreEqual(Mark actual, Mark expected)
-    {
-        return actual.ManifestationId == expected.ManifestationId
-               && actual.CardContestId == expected.CardContestId
-               && actual.CandidateId == expected.CandidateId
-               && actual.PartyId == expected.PartyId
-               && actual.Rank == expected.Rank
-               && actual.MarkDensity == expected.MarkDensity
-               && actual.IsAmbiguous == expected.IsAmbiguous
-               && actual.IsVote == expected.IsVote;
-    }
-
     [Test]
     public async Task Parse_Adds_Marks()
     {
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = CreateMockVoteRepository();
         var parser = new Services.ModelParsers.Json.VotingRecordParser();
+        var comparer = new MarkValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddMark(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddMark(Is<Mark>(actual =>
-                MarksAreEqual(actual, _expectedMark))))
+                comparer.Equals(actual, _expectedMark))))
             .WasCalled(Times.Once);
     }
 

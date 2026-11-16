@@ -37,7 +37,8 @@ public class DistrictManifestParser
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.FindOrAddCollectionVersion(Any(), Any())).WasCalled(Times.Once);
-        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.District, "5.17.18.1")).WasCalled(Times.Once);
+        await Assert.That(repository.FindOrAddCollectionVersion(CollectionNames.District, "5.17.18.1"))
+            .WasCalled(Times.Once);
     }
 
     [Test]
@@ -46,24 +47,14 @@ public class DistrictManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.DistrictManifestParser();
+        var comparer = new DistrictValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddDistrict(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddDistrict(Is<District>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddDistrict(Is<District>(actual => actual.Id == _expectedSingle.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddDistrict(
-                Is<District>(actual => actual.DistrictTypeId == _expectedSingle.DistrictTypeId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddDistrict(Is<District>(actual =>
-                actual.ExternalId == _expectedSingle.ExternalId)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

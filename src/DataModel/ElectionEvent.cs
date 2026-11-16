@@ -33,12 +33,18 @@ public class ElectionEventValueEqualityComparer : IEqualityComparer<ElectionEven
         if (x.GetType() != y.GetType()) return false;
         return x.Id == y.Id && x.Description == y.Description && x.ExternalId == y.ExternalId &&
                x.JurisdictionId == y.JurisdictionId && x.ElectionDate.Equals(y.ElectionDate) &&
-               x.ElectionSignature.Equals(y.ElectionSignature);
+               Enumerable.SequenceEqual(x.ElectionSignature, y.ElectionSignature);
     }
 
     public int GetHashCode(ElectionEvent obj)
     {
-        return HashCode.Combine(obj.Id, obj.Description, obj.ExternalId, obj.JurisdictionId, obj.ElectionDate,
-            obj.ElectionSignature);
+        var hashCode = new HashCode();
+        hashCode.Add(obj.Id);
+        hashCode.Add(obj.Description);
+        hashCode.Add(obj.ExternalId);
+        hashCode.Add(obj.JurisdictionId);
+        hashCode.Add(obj.ElectionDate);
+        hashCode.AddBytes(obj.ElectionSignature);
+        return hashCode.ToHashCode();
     }
 }

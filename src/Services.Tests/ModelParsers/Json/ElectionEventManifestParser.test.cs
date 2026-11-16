@@ -106,33 +106,14 @@ public class ElectionEventManifestParser
         var repository = IVoteRepository.Mock();
         repository.FindOrAddJurisdiction(Any()).ReturnsAsync(Task.FromResult(42));
         var parser = new Services.ModelParsers.Json.ElectionEventManifestParser();
+        var comparer = new ElectionEventValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddElectionEvent(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddElectionEvent(Is<ElectionEvent>(actual =>
-                actual.Description == _expectedSingleElectionEvent.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(
-                repository.AddElectionEvent(Is<ElectionEvent>(actual => actual.Id == _expectedSingleElectionEvent.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddElectionEvent(Is<ElectionEvent>(actual =>
-                actual.ExternalId == _expectedSingleElectionEvent.ExternalId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddElectionEvent(Is<ElectionEvent>(actual =>
-                actual.JurisdictionId == _expectedSingleElectionEvent.JurisdictionId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddElectionEvent(Is<ElectionEvent>(actual =>
-                actual.ElectionDate == _expectedSingleElectionEvent.ElectionDate)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddElectionEvent(Is<ElectionEvent>(actual =>
-                Enumerable.SequenceEqual(actual.ElectionSignature, _expectedSingleElectionEvent.ElectionSignature))))
+                comparer.Equals(actual, _expectedSingleElectionEvent))))
             .WasCalled(Times.Once);
     }
 

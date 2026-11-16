@@ -44,24 +44,14 @@ public class PrecinctPortionManifestParser
         await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(SingleItemList));
         var repository = IVoteRepository.Mock();
         var parser = new Services.ModelParsers.Json.PrecinctPortionManifestParser();
+        var comparer = new PrecinctPortionValueEqualityComparer();
 
         await parser.Parse(stream, repository);
 
         await Assert.That(repository.AddPrecinctPortion(Any())).WasCalled(Times.Once);
         await Assert
             .That(repository.AddPrecinctPortion(Is<PrecinctPortion>(actual =>
-                actual.Description == _expectedSingle.Description)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddPrecinctPortion(Is<PrecinctPortion>(actual => actual.Id == _expectedSingle.Id)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddPrecinctPortion(Is<PrecinctPortion>(actual =>
-                actual.ExternalId == _expectedSingle.ExternalId)))
-            .WasCalled(Times.Once);
-        await Assert
-            .That(repository.AddPrecinctPortion(Is<PrecinctPortion>(actual =>
-                actual.PrecinctId == _expectedSingle.PrecinctId)))
+                comparer.Equals(actual, _expectedSingle))))
             .WasCalled(Times.Once);
     }
 }

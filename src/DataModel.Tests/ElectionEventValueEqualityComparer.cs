@@ -49,6 +49,8 @@ public class ElectionEventValueEqualityComparer
     {
         var a = Mocks.ElectionEvent;
         var b = Mocks.ElectionEvent;
+        // ElectionSignature is shallow cloned, so reference-equal and needs cloned.
+        b.ElectionSignature = (byte[])b.ElectionSignature.Clone();
         var comparer = new DataModel.ElectionEventValueEqualityComparer();
 
         var result = comparer.Equals(a, b);
