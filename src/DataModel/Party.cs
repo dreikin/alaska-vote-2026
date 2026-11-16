@@ -15,3 +15,20 @@ public class Party
         return (Party)MemberwiseClone();
     }
 }
+
+public class PartyValueEqualityComparer : IEqualityComparer<Party>
+{
+    public bool Equals(Party? x, Party? y)
+    {
+        if (ReferenceEquals(x, y)) return true;
+        if (x is null) return false;
+        if (y is null) return false;
+        if (x.GetType() != y.GetType()) return false;
+        return x.Id == y.Id && x.Description == y.Description && x.ExternalId == y.ExternalId;
+    }
+
+    public int GetHashCode(Party obj)
+    {
+        return HashCode.Combine(obj.Id, obj.Description, obj.ExternalId);
+    }
+}

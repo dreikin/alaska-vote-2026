@@ -17,3 +17,21 @@ public class PrecinctPortion
         return (PrecinctPortion)MemberwiseClone();
     }
 }
+
+public class PrecinctPortionValueEqualityComparer : IEqualityComparer<PrecinctPortion>
+{
+    public bool Equals(PrecinctPortion? x, PrecinctPortion? y)
+    {
+        if (ReferenceEquals(x, y)) return true;
+        if (x is null) return false;
+        if (y is null) return false;
+        if (x.GetType() != y.GetType()) return false;
+        return x.Id == y.Id && x.Description == y.Description && x.ExternalId == y.ExternalId &&
+               x.PrecinctId == y.PrecinctId;
+    }
+
+    public int GetHashCode(PrecinctPortion obj)
+    {
+        return HashCode.Combine(obj.Id, obj.Description, obj.ExternalId, obj.PrecinctId);
+    }
+}

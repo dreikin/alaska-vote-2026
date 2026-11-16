@@ -14,3 +14,20 @@ public class Precinct
         return (Precinct)MemberwiseClone();
     }
 }
+
+public class PrecinctValueEqualityComparer : IEqualityComparer<Precinct>
+{
+    public bool Equals(Precinct? x, Precinct? y)
+    {
+        if (ReferenceEquals(x, y)) return true;
+        if (x is null) return false;
+        if (y is null) return false;
+        if (x.GetType() != y.GetType()) return false;
+        return x.Id == y.Id && x.Description == y.Description && x.ExternalId == y.ExternalId;
+    }
+
+    public int GetHashCode(Precinct obj)
+    {
+        return HashCode.Combine(obj.Id, obj.Description, obj.ExternalId);
+    }
+}

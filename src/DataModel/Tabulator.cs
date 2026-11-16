@@ -22,3 +22,33 @@ public class Tabulator
         return (Tabulator)MemberwiseClone();
     }
 }
+
+public class TabulatorValueEqualityComparer : IEqualityComparer<Tabulator>
+{
+    public bool Equals(Tabulator? x, Tabulator? y)
+    {
+        if (ReferenceEquals(x, y)) return true;
+        if (x is null) return false;
+        if (y is null) return false;
+        if (x.GetType() != y.GetType()) return false;
+        return x.Id == y.Id && x.Description == y.Description && x.ExternalId == y.ExternalId &&
+               x.VotingLocationId == y.VotingLocationId && x.TabulatorTypeId == y.TabulatorTypeId &&
+               x.ThresholdMin == y.ThresholdMin && x.ThresholdMax == y.ThresholdMax &&
+               x.WriteThresholdMin == y.WriteThresholdMin && x.WriteThresholdMax == y.WriteThresholdMax;
+    }
+
+    public int GetHashCode(Tabulator obj)
+    {
+        var hashCode = new HashCode();
+        hashCode.Add(obj.Id);
+        hashCode.Add(obj.Description);
+        hashCode.Add(obj.ExternalId);
+        hashCode.Add(obj.VotingLocationId);
+        hashCode.Add(obj.TabulatorTypeId);
+        hashCode.Add(obj.ThresholdMin);
+        hashCode.Add(obj.ThresholdMax);
+        hashCode.Add(obj.WriteThresholdMin);
+        hashCode.Add(obj.WriteThresholdMax);
+        return hashCode.ToHashCode();
+    }
+}
