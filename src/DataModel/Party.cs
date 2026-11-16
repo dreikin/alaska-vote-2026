@@ -1,10 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataModel;
 
 public class Party
 {
-    [Key] public int Id { get; set; }
+    // Party IDs include 0, unfortunately.
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [Key]
+    public int Id { get; set; }
+
     [Required] public required string Description { get; set; }
     public string? ExternalId { get; set; }
     public ICollection<Candidate>? CandidateAffiliations { get; set; }
