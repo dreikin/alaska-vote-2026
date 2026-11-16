@@ -10,7 +10,7 @@ public class Candidate
     [Required] public required int ContestId { get; set; }
     public Contest? Contest { get; set; }
     [Required] public required int CandidateTypeId { get; set; }
-    [Required] public CandidateType? CandidateType { get; set; }
+    public CandidateType? CandidateType { get; set; }
     [Required] public required bool Disabled { get; set; }
     public ICollection<Mark>? Marks { get; set; }
     public ICollection<Party>? PartyAffiliations { get; set; }

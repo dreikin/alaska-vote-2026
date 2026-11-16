@@ -17,3 +17,21 @@ public class District
         return (District)MemberwiseClone();
     }
 }
+
+public class DistrictValueEqualityComparer : IEqualityComparer<District>
+{
+    public bool Equals(District? x, District? y)
+    {
+        if (ReferenceEquals(x, y)) return true;
+        if (x is null) return false;
+        if (y is null) return false;
+        if (x.GetType() != y.GetType()) return false;
+        return x.Id == y.Id && x.Description == y.Description && x.ExternalId == y.ExternalId &&
+               x.DistrictTypeId.Equals(y.DistrictTypeId);
+    }
+
+    public int GetHashCode(District obj)
+    {
+        return HashCode.Combine(obj.Id, obj.Description, obj.ExternalId, obj.DistrictTypeId);
+    }
+}

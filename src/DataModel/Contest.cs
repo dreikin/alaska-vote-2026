@@ -30,3 +30,32 @@ public class Contest
         return (Contest)MemberwiseClone();
     }
 }
+
+public class ContestValueEqualityComparer : IEqualityComparer<Contest>
+{
+    public bool Equals(Contest? x, Contest? y)
+    {
+        if (ReferenceEquals(x, y)) return true;
+        if (x is null) return false;
+        if (y is null) return false;
+        if (x.GetType() != y.GetType()) return false;
+        return x.Id == y.Id && x.Description == y.Description && x.ExternalId == y.ExternalId &&
+               x.DistrictId == y.DistrictId && x.VoteFor == y.VoteFor && x.NumOfRanks == y.NumOfRanks &&
+               x.NumOfWriteins == y.NumOfWriteins && x.Disabled == y.Disabled && x.ContestTypeId == y.ContestTypeId;
+    }
+
+    public int GetHashCode(Contest obj)
+    {
+        var hashCode = new HashCode();
+        hashCode.Add(obj.Id);
+        hashCode.Add(obj.Description);
+        hashCode.Add(obj.ExternalId);
+        hashCode.Add(obj.DistrictId);
+        hashCode.Add(obj.VoteFor);
+        hashCode.Add(obj.NumOfRanks);
+        hashCode.Add(obj.NumOfWriteins);
+        hashCode.Add(obj.Disabled);
+        hashCode.Add(obj.ContestTypeId);
+        return hashCode.ToHashCode();
+    }
+}

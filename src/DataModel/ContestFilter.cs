@@ -13,3 +13,20 @@ public class ContestFilter
         return (ContestFilter)MemberwiseClone();
     }
 }
+
+public class ContestFilterValueEqualityComparer : IEqualityComparer<ContestFilter>
+{
+    public bool Equals(ContestFilter? x, ContestFilter? y)
+    {
+        if (ReferenceEquals(x, y)) return true;
+        if (x is null) return false;
+        if (y is null) return false;
+        if (x.GetType() != y.GetType()) return false;
+        return x.Id == y.Id && x.ConfigurationId == y.ConfigurationId;
+    }
+
+    public int GetHashCode(ContestFilter obj)
+    {
+        return HashCode.Combine(obj.Id, obj.ConfigurationId);
+    }
+}

@@ -177,6 +177,7 @@ public class CandidateValueEqualityComparer
         var a = Mocks.Candidate;
         var b = Mocks.Candidate;
         b.Contest = Mocks.Contest;
+        b.CandidateType = Mocks.CandidateType;
         b.Marks = new List<Mark>([Mocks.Mark]);
         b.PartyAffiliations = new List<Party>([Mocks.Party]);
         var comparer = new DataModel.CandidateValueEqualityComparer();

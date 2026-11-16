@@ -16,3 +16,20 @@ public class OutstackCondition
         return (OutstackCondition)MemberwiseClone();
     }
 }
+
+public class OutstackConditionValueEqualityComparer : IEqualityComparer<OutstackCondition>
+{
+    public bool Equals(OutstackCondition? x, OutstackCondition? y)
+    {
+        if (ReferenceEquals(x, y)) return true;
+        if (x is null) return false;
+        if (y is null) return false;
+        if (x.GetType() != y.GetType()) return false;
+        return x.Id == y.Id && x.Description == y.Description;
+    }
+
+    public int GetHashCode(OutstackCondition obj)
+    {
+        return HashCode.Combine(obj.Id, obj.Description);
+    }
+}
