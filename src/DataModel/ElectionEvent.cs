@@ -19,7 +19,11 @@ public class ElectionEvent
 
     public ElectionEvent ShallowCopy()
     {
-        return (ElectionEvent)MemberwiseClone();
+        // ElectionSignature is shallow cloned, so reference-equal, but we want to treat
+        // it like a value type, so it needs cloned itself.
+        var clone = (ElectionEvent)MemberwiseClone();
+        clone.ElectionSignature = (byte[])clone.ElectionSignature.Clone();
+        return clone;
     }
 }
 
